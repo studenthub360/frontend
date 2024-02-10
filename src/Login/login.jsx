@@ -25,9 +25,10 @@ const Login = () => {
         <div className="flex text-right justify-end">
           <Link
             to="/"
-            className="text-2xl text-[#3B4FFE] mt-18 lg:mt-16 p-6 font-semibold"
+            className="text-2xl flex text-[#3B4FFE] mt-18 lg:mt-16 p-6 font-semibold"
           >
-            <h1 className="text-right">Studenthub360</h1>
+            <h1 className="font-serif">Studenthub</h1>{" "}
+            <h1 className="text-[#3B4FFE] font-magiona-display">360</h1>
           </Link>
         </div>
         <div className="min-w-screen lg:w-full min-h-screen  items-center p-20 lg:p-52 ">
@@ -61,13 +62,13 @@ const Login = () => {
               </p>
             </div>
             <Link to="/dashboard">
-            <button
-              type="button"
-              className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
-              onClick={handleLogin}
-            >
-              Log In
-            </button>
+              <button
+                type="button"
+                className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
+                onClick={handleLogin}
+              >
+                Log In
+              </button>
             </Link>
           </form>
           <p className="mt-4 text-sm text-center lg:text-center">

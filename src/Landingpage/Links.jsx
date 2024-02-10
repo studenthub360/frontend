@@ -32,7 +32,7 @@ const Links = () => {
               </p>
             </div>
           </Link>
-          <Link to="/financial-management" className="text-center">
+          <Link to="/financial" className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img src={cash} alt="cash" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">

@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'magiona-display': ['Magiona Display', 'sans-serif'],
+        // Add other font families if needed
+      },
+    },
   },
   plugins: [],
 }

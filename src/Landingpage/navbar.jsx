@@ -5,6 +5,10 @@ const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
 
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -29,31 +33,39 @@ const Navbar = () => {
       <div className="container mx-auto px-4 lg:px-0">
         <div className="py-3 flex justify-between items-center">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl text-[#3B4FFE] ml-5 font-semibold">
-              Studenthub360
+            <Link
+              to="/"
+              className="text-2xl text-[#3B4FFE] flex  ml-5 font-semibold"
+            >
+              <h1 className="font-serif">Studenthub</h1>{" "}
+              <h1 className="text-[#3B4FFE] font-magiona-display">360</h1>
             </Link>
           </div>
           <div className="hidden lg:flex space-x-10">
             <Link
               to="/home"
+              onClick={closeDropdown}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               Home
             </Link>
             <Link
               to="/about"
+              onClick={closeDropdown}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               About
             </Link>
             <Link
               to="/benefits"
+              onClick={closeDropdown}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               Benefits
             </Link>
             <Link
               to="/contact"
+              onClick={closeDropdown}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               Contacts
@@ -97,27 +109,31 @@ const Navbar = () => {
           </div>
           {isDropdownOpen && (
             <div className="lg:hidden fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-4">
-              <div className="flex flex-col space-y-6 ">
+              <div className="flex flex-col space-y-6">
                 <Link
                   to="/home"
+                  onClick={closeDropdown}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   Home
                 </Link>
                 <Link
                   to="/about"
+                  onClick={closeDropdown}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   About
                 </Link>
                 <Link
                   to="/benefits"
+                  onClick={closeDropdown}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   Benefits
                 </Link>
                 <Link
                   to="/contact"
+                  onClick={closeDropdown}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   Contacts
@@ -129,6 +145,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/login"
+                  onClick={closeDropdown}
                   className="block bg-[#3A4FFE] text-white font-semibold py-1 rounded-lg text-center w-20"
                 >
                   <button>Log in</button>

@@ -7,7 +7,8 @@ import TimeManagement from "./TimeManagement/Dashboard";
 import Scheduling from "./TimeManagement/Scheduling";
 import Tasks from "./TimeManagement/Tasks";
 import Tasksdah from "./TimeManagement/taskdash";
-
+import FinanceDashboard from "./FinanceManagement/LandingPage";
+import ExpenseTracker from "./FinanceManagement/ExpenseTracker";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
       <Route path="/scheduling" element={< Scheduling/>} />
       <Route path="/tasks" element={< Tasks/>} />
       <Route path="/tasksdah" element= {<Tasksdah/>} />
+      <Route path="/finance" element={< FinanceDashboard/>} />
+      <Route path="/expense-tracker" element={< ExpenseTracker/>} />
     </Routes>
   );
 }
