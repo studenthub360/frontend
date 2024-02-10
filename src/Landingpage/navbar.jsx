@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
@@ -60,16 +59,19 @@ const Navbar = () => {
               Contacts
             </Link>
           </div>
+
           <div className="hidden lg:flex">
-            <button className={`font-semibold mx-5`}>Sign Up</button>
-            <Link to='/login' >
-            <button 
-              className={`bg-[#3A4FFE] font-semibold text-${
-                isSticky ? "white" : "white"
-              } px-4 py-1 rounded-lg hover:bg-gray-800`}
-            >
-              Log in
-            </button>
+            <Link to="/signup">
+              <button className={`font-semibold mx-5`}>Sign Up</button>
+            </Link>
+            <Link to="/login">
+              <button
+                className={`bg-[#3A4FFE] font-semibold text-${
+                  isSticky ? "white" : "white"
+                } px-4 py-1 rounded-lg `}
+              >
+                Log in
+              </button>
             </Link>
           </div>
           <div className="lg:hidden mt-4">
@@ -120,13 +122,16 @@ const Navbar = () => {
                 >
                   Contacts
                 </Link>
-                <button className="block font-semibold text-left py-2">
-                  Sign Up
-                </button>
-                <Link to='/login' >
-                <button className="block bg-[#3A4FFE] text-white font-semibold py-1 rounded-lg hover:bg-gray-800">
-                  Log in
-                </button>
+                <Link to="/signup">
+                  <button className="block font-semibold text-left py-2">
+                    Sign Up
+                  </button>
+                </Link>
+                <Link
+                  to="/login"
+                  className="block bg-[#3A4FFE] text-white font-semibold py-1 rounded-lg text-center w-16"
+                >
+                  <button>Log in</button>
                 </Link>
               </div>
             </div>

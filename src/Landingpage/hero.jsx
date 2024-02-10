@@ -10,18 +10,18 @@ const hero = () => {
             Students Resources for Overcoming Challenges
           </h1>
 
-          <p className="text-lg font-medium mb-8 p-1">
+          <p className="text-lg font-medium text-[#33363F] mb-8 p-1">
             Your personal assistant for easy management of your time, finances,
             academics, and social network with no stress
           </p>
-          <button className="bg-[#3A4FFE] text-white px-6 py-3 rounded-lg">
+          <button className="bg-[#3A4FFE] font-bold text-white px-6 py-3 rounded-lg">
             Get Started
           </button>
         </div>
         <img
           src={group8}
           alt="Group 8"
-          className="mx-10 mt-3 w-full md:hide md:w-1/2 md:ml-8 md:mt-0 md:mr-0 md:rounded-lg  md:object-cover md:h-96"
+          className="mx-10 mt-3 mb-10 w-full md:hide md:w-1/2 md:ml-8 md:mt-0 md:mr-0 md:rounded-lg md:object-contain   md:h-96"
         />
       </div>
     </div>
