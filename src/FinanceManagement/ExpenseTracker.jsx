@@ -53,10 +53,10 @@ const ExpenseTracker = () => {
   const categories = Array.from(new Set(expenses.map((expense) => expense.category)));
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-pink-500 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-md">
         <div className="px-6 py-4">
-          <h1 className="text-3xl font-bold mb-4 text-[#521963]">Expense Tracker</h1>
+          <h1 className="text-3xl font-bold mb-4 text-[#1b1963]">Expense Tracker</h1>
           <div className="mb-4">
             <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
               Category:
@@ -84,13 +84,13 @@ const ExpenseTracker = () => {
           </div>
           <button
             onClick={handleAddExpense}
-            className="bg-[#521963] hover:bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold py-2 px-4 rounded transition duration-200"
+            className="bg-[#1b1963] hover:bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold py-2 px-4 rounded transition duration-200"
           >
             Add Expense
           </button>
         </div>
         <div className="px-6 py-4">
-          <h2 className="text-xl font-bold mb-2 text-[#521963]">Expenses:</h2>
+          <h2 className="text-xl font-bold mb-2 text-[#1b1963]">Expenses:</h2>
           {expenses.length > 0 ? (
             <ul>
               {filteredExpenses.map((expense, index) => (
@@ -126,7 +126,7 @@ const ExpenseTracker = () => {
             <p className="text-gray-600">No expenses added yet.</p>
           )}
           <div className="mt-4">
-            <h3 className="text-lg font-bold mb-2 text-[#521963]">Total Expenses:</h3>
+            <h3 className="text-lg font-bold mb-2 text-[#1b1963]">Total Expenses:</h3>
             <div className="bg-white px-4 py-3 border rounded-md shadow-sm">
               <span className="text-2xl font-bold text-gray-800">${totalExpenses.toFixed(2)}</span>
             </div>
@@ -135,7 +135,7 @@ const ExpenseTracker = () => {
       </div>
       <div className="mt-8 max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-md">
         <div className="px-6 py-4">
-          <h2 className="text-xl font-bold mb-2 text-[#521963]">Budget:</h2>
+          <h2 className="text-xl font-bold mb-2 text-[#1b1963]">Budget:</h2>
           <div className="mb-4">
             <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">
               Monthly Budget:
@@ -157,7 +157,7 @@ const ExpenseTracker = () => {
       </div>
       <div className="mt-8 max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-md">
         <div className="px-6 py-4">
-          <h2 className="text-xl font-bold mb-2 text-[#521963]">Categories:</h2>
+          <h2 className="text-xl font-bold mb-2 text-[#1b1963]">Categories:</h2>
           <div className="mb-4">
             <label htmlFor="filterCategory" className="block text-sm font-medium text-gray-700 mb-1">
               Filter by Category:
@@ -198,7 +198,7 @@ const ExpenseTracker = () => {
       </div>
       <div className="mt-8 max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-md">
         <div className="px-6 py-4">
-          <h2 className="text-xl font-bold mb-2 text-[#521963]">Reports:</h2>
+          <h2 className="text-xl font-bold mb-2 text-[#1b1963]">Reports:</h2>
           <p className="text-gray-600">Generate reports to visualize your spending habits.</p>
           {/* Add report generation and visualization logic using charting libraries */}
         </div>
