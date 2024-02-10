@@ -100,6 +100,7 @@ const SignUp = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
+            <Link to="/login">
             <button
               type="button"
               className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
@@ -107,6 +108,7 @@ const SignUp = () => {
             >
               Sign Up
             </button>
+            </Link>
           </form>
           <p className="mt-4 text-sm text-center lg:text-center">
             Already have an account?{" "}

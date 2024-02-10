@@ -60,6 +60,7 @@ const Login = () => {
                 <Link to="/forgot-password">Forgot Password?</Link>
               </p>
             </div>
+            <Link to="/dashboard">
             <button
               type="button"
               className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
@@ -67,6 +68,7 @@ const Login = () => {
             >
               Log In
             </button>
+            </Link>
           </form>
           <p className="mt-4 text-sm text-center lg:text-center">
             Don't have an account?{" "}

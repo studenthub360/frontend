@@ -13,7 +13,7 @@ const Links = () => {
           What will you gain?
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-10 justify-center items-center text-black">
-          <Link to="/time-management" className="text-center">
+          <Link to="/dashboard/time-management" className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img
                 src={vector}

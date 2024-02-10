@@ -97,7 +97,7 @@ const Navbar = () => {
           </div>
           {isDropdownOpen && (
             <div className="lg:hidden fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-4">
-              <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-6 ">
                 <Link
                   to="/home"
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
@@ -129,7 +129,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/login"
-                  className="block bg-[#3A4FFE] text-white font-semibold py-1 rounded-lg text-center w-16"
+                  className="block bg-[#3A4FFE] text-white font-semibold py-1 rounded-lg text-center w-20"
                 >
                   <button>Log in</button>
                 </Link>
