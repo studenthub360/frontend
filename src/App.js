@@ -5,6 +5,9 @@ import Signup from "./Signup/signup"
 import Dashboard from "./Dashboard/Dashboard";
 import TimeManagement from "./TimeManagement/Dashboard";
 import Scheduling from "./TimeManagement/Scheduling";
+import Tasks from "./TimeManagement/Tasks";
+import Tasksdah from "./TimeManagement/taskdash";
+
 
 function App() {
   return (
@@ -14,7 +17,9 @@ function App() {
       <Route path="/signup" element={< Signup/>} />
       <Route path="/dashboard" element={< Dashboard/>} />
       <Route path="/dashboard/time-management" element={< TimeManagement/>} />
-      <Route path="/dashboard/time-management/scheduling" element={< Scheduling/>} />
+      <Route path="/scheduling" element={< Scheduling/>} />
+      <Route path="/tasks" element={< Tasks/>} />
+      <Route path="/tasksdah" element= {<Tasksdah/>} />
     </Routes>
   );
 }

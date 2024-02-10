@@ -21,7 +21,7 @@ const TimeManagement = () => {
           </h2>
         </div>
       
-        <Scheduling/>
+        <Tasks/>
       </div>
     </div>
   );
