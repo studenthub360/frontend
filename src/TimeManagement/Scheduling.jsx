@@ -64,7 +64,7 @@ const Scheduling = () => {
               />
             </div>
 
-            <div className="mb-4 w-full lg:flex">
+            <div className="mb-4 w-full ">
               <div className="block lg:w-1/2 pr-2">
                 <label className="font-bold " htmlFor="eventTime">
                   Set Time:
