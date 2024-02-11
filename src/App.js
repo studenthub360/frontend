@@ -21,7 +21,7 @@ function App() {
       <Route path="/scheduling" element={< Scheduling/>} />
       <Route path="/tasks" element={< Tasks/>} />
       <Route path="/tasksdah" element= {<Tasksdah/>} />
-      <Route path="/finance" element={< FinanceDashboard/>} />
+      <Route path="/financial" element={< FinanceDashboard/>} />
       <Route path="/expense-tracker" element={< ExpenseTracker/>} />
     </Routes>
   );
