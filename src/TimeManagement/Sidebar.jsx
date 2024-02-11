@@ -13,10 +13,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="lg:bg-[#3B50FE] bg-white min-h-screen w-1 lg:w-1/4 p-4 overflow-hidden">
-      <ul
-        className={`hidden lg:block  text-black lg:text-white font-bold `}
-      >
+    <div className="lg:bg-[#3B50FE] bg-white h-2 lg:mi-h-screen w-1/4 p-4 lg:p-0 overflow-hidden">
+      <ul className={`hidden lg:block text-black lg:text-white font-bold`}>
         <li className="p-4">
           <Link to="/dashboard/time-management">Scheduling</Link>
         </li>
@@ -29,7 +27,7 @@ const Sidebar = () => {
       </ul>
       <button
         onClick={toggleSidebar}
-        className="text-[#3B4FFE] lg:hidden focus:outline-none"
+        className="text-[#3B4FFE] justify-start lg:hidden focus:outline-none"
       >
         <svg
           className="h-6 w-6"

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const TimeManagement = () => {
   return (
-    <div className="flex flex-row lg:flex-row min-h-screen w-full overflow-x-hidden ">
+    <div className="flex flex-col lg:flex-row min-h-screen w-full overflow-x-hidden ">
       <Sidebar />
       <div className="flex-grow p-8">
         {/* Main Content for Time Management */}

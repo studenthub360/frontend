@@ -33,12 +33,12 @@ const Scheduling = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row space-x-1 lg:space-x-8 ">
-      <div className=" w-auto p-1">
+    <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-8">
+      <div className="w-full lg:w-1/2 p-4">
         <h2 className="text-2xl font-bold mb-4">Scheduling</h2>
 
         {/* Form to add new events */}
-        <form className="lg:flex lg:flex-wrap">
+        <form className="lg:flex flex-wrap">
           <div className="mb-4 w-full lg:w-1/2">
             <label className="font-bold" htmlFor="eventName">
               Event Name:
@@ -99,6 +99,7 @@ const Scheduling = () => {
             ADD
           </button>
         </form>
+
         <ul className="w-full mt-4">
           {events.map((event, index) => (
             <li

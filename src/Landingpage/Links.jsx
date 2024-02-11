@@ -13,7 +13,7 @@ const Links = () => {
           What will you gain?
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-10 justify-center items-center text-black">
-          <Link to="/dashboard/time-management" className="text-center">
+          <Link className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img
                 src={vector}
@@ -32,7 +32,7 @@ const Links = () => {
               </p>
             </div>
           </Link>
-          <Link to="/financial" className="text-center">
+          <Link className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img src={cash} alt="cash" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
@@ -44,7 +44,7 @@ const Links = () => {
               </p>
             </div>
           </Link>
-          <Link to="/academic-support" className="text-center">
+          <Link className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img src={hat} alt="hat" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
@@ -57,7 +57,7 @@ const Links = () => {
               </p>
             </div>
           </Link>
-          <Link to="/user-authentication" className="text-center">
+          <Link className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img src={user} alt="user" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
@@ -70,7 +70,7 @@ const Links = () => {
               </p>
             </div>
           </Link>
-          <Link to="/user-authentication" className="text-center">
+          <Link className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img src={user} alt="user" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
@@ -83,11 +83,11 @@ const Links = () => {
               </p>
             </div>
           </Link>
-          <Link to="/user-authentication" className="text-center">
+          <Link className="text-center">
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <img src={user} alt="user" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
-              Well-being
+                Well-being
               </h3>
               <p className="px-4 py-5">
                 Helps verifying the identity of users accessing the platform and
