@@ -24,7 +24,7 @@ function App() {
       <Route path="/tasksdah" element={<Tasksdah />} />
       <Route path="/financial" element={<FinanceDashboard />} />
       <Route path="/expense-tracker" element={<ExpenseTracker />} />
-      <Route path="/events" element={<Events />} />
+      <Route path="/dashboard/time-management/events" element={<Events />} />
     </Routes>
   );
 }

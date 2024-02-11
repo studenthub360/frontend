@@ -1,28 +1,25 @@
+// Events.js
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 
-const Scheduling = () => {
+const Events = () => {
   const [events, setEvents] = useState([]);
   const [eventName, setEventName] = useState("");
-  const [eventDate, setEventDate] = useState(new Date());
-  const [eventTime, setEventTime] = useState("");
+  const [eventLocation, setEventLocation] = useState("");
+  const [eventDateTime, setEventDateTime] = useState("");
   const [eventDescription, setEventDescription] = useState("");
 
   const addEvent = () => {
     const newEvent = {
       name: eventName,
-      date: eventDate,
-      time: eventTime,
+      location: eventLocation,
+      dateTime: eventDateTime,
       description: eventDescription,
     };
     setEvents([...events, newEvent]);
     // Reset form fields
     setEventName("");
-    setEventDate(new Date());
-    setEventTime("");
+    setEventLocation("");
+    setEventDateTime("");
     setEventDescription("");
   };
 
@@ -31,15 +28,26 @@ const Scheduling = () => {
     updatedEvents.splice(index, 1);
     setEvents(updatedEvents);
   };
-
+  const formatDateTime = (dateTimeString) => {
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return new Date(dateTimeString).toLocaleString(undefined, options);
+  };
   return (
     <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-8">
       <div className="w-full lg:w-1/2 p-4">
-        <h2 className="text-2xl font-bold mb-4">Scheduling</h2>
+        <h2 className="text-2xl font-bold mb-4">Events</h2>
 
         {/* Form to add new events */}
-        <form className="lg:flex flex-wrap">
-          <div className="mb-4 w-full lg:w-1/2">
+        <form className="lg:flex flex-grow lg:flex-wrap">
+          <div className="mb-4 px-2 w-full lg:w-1/2">
             <label className="font-bold" htmlFor="eventName">
               Event Name:
             </label>
@@ -51,37 +59,33 @@ const Scheduling = () => {
               className="p-1 w-full border border-black rounded-lg"
             />
           </div>
-          <div className="flex gap-10">
-            <div className=" block lg:w-1/2">
-              <label className="font-bold " htmlFor="eventDate">
-                Set Date:
-              </label>
-              <DatePicker
-                selected={eventDate}
-                onChange={(date) => setEventDate(date)}
-                dateFormat="MMMM d, yyyy"
-                className="p-1 border-black rounded-lg w-full border"
-              />
-            </div>
-
-            <div className="mb-4 w-full ">
-              <div className="block lg:w-1/2 pr-2">
-                <label className="font-bold " htmlFor="eventTime">
-                  Set Time:
-                </label>
-                <input
-                  type="time"
-                  id="eventTime"
-                  value={eventTime}
-                  onChange={(e) => setEventTime(e.target.value)}
-                  className="p-1 border-black rounded-lg w-full border"
-                />
-              </div>
-            </div>
+          <div className="mb-4 w-full lg:w-1/2">
+            <label className="font-bold" htmlFor="eventLocation">
+              Location:
+            </label>
+            <input
+              type="text"
+              id="eventLocation"
+              value={eventLocation}
+              onChange={(e) => setEventLocation(e.target.value)}
+              className="p-1 w-full border border-black rounded-lg"
+            />
+          </div>
+          <div className="mb-4 w-full lg:w-1/2">
+            <label className="font-bold" htmlFor="eventDateTime">
+              Date and Time:
+            </label>
+            <input
+              type="datetime-local"
+              id="eventDateTime"
+              value={eventDateTime}
+              onChange={(e) => setEventDateTime(e.target.value)}
+              className="p-1 w-full border border-black rounded-lg"
+            />
           </div>
           <div className="mb-4 w-full">
             <label className="font-bold" htmlFor="eventDescription">
-              Write a short note describing event
+              Event Description:
             </label>
             <textarea
               id="eventDescription"
@@ -99,7 +103,6 @@ const Scheduling = () => {
             ADD
           </button>
         </form>
-
         <ul className="w-full mt-4">
           {events.map((event, index) => (
             <li
@@ -108,7 +111,7 @@ const Scheduling = () => {
             >
               <div className="mb-2 lg:mb-0">
                 <span className="font-semibold">{event.name}</span> -{" "}
-                {event.date.toDateString()} {event.time}
+                {event.location}, {event.dateTime}
                 <p>{event.description}</p>
               </div>
               <button
@@ -123,18 +126,25 @@ const Scheduling = () => {
       </div>
 
       <div className="w-full lg:w-1/2 p-4">
-        {/* Calendar display */}
-        <h2 className="text-2xl font-bold mb-4">Calendar</h2>
-        {/* Add your calendar component or integrate a calendar library here */}
-        <Calendar
-          className="w-1/2 max-w-xs mx-auto rounded-lg p-2 border"
-          tileClassName={({ date }) => {
-            return "text-center border  p-2";
-          }}
-        />
+        {/* Slider display */}
+        <h2 className="text-2xl font-bold mb-4">Events Slider</h2>
+        {/* Add your slider component or integrate a slider library here */}
+        {/* Replace this with your actual slider component */}
+        <div className="border p-2">
+          {/* Sample slider content */}
+          {events.map((event, index) => (
+            <div key={index} className="mb-2">
+              <h3 className="font-semibold">{event.name}</h3>
+              <p>
+                {event.location}, {formatDateTime(event.dateTime)}{" "}
+              </p>
+              <p>{event.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Scheduling;
+export default Events;
