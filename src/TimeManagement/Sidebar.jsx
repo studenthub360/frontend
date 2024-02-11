@@ -62,7 +62,7 @@ const Sidebar = () => {
               Tasks
             </Link>
             <Link
-              to="/dashboard/time-management/events"
+              to="/events"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >

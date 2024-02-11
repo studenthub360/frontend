@@ -1,10 +1,10 @@
 // TimeManagement.js
 import React from "react";
 import Sidebar from "./Sidebar";
-import Tasks from "./Tasks";
+import Events from "./Events";
 import { Link } from "react-router-dom";
 
-const TimeManagement = () => {
+const Event = () => {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen w-full overflow-x-hidden ">
       <Sidebar />
@@ -23,10 +23,10 @@ const TimeManagement = () => {
           </Link>
         </div>
 
-        <Tasks />
+        <Events />
       </div>
     </div>
   );
 };
 
-export default TimeManagement;
+export default Event;
