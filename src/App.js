@@ -11,6 +11,7 @@ import FinanceDashboard from "./FinanceManagement/LandingPage";
 import ExpenseTracker from "./FinanceManagement/ExpenseTracker";
 import Events from "./TimeManagement/eventdash";
 
+
 function App() {
   return (
     <Routes>
@@ -25,6 +26,7 @@ function App() {
       <Route path="/financial" element={<FinanceDashboard />} />
       <Route path="/expense-tracker" element={<ExpenseTracker />} />
       <Route path="/dashboard/time-management/events" element={<Events />} />
+      
     </Routes>
   );
 }

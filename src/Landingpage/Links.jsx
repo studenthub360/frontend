@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Links = () => {
   return (
-    <div className="mx-auto p-2 w-full bg-center bg-white text-white">
+    <div id="benefits" className="mx-auto p-2 w-full bg-center bg-white text-white">
       <div className="mb-8 px-4 md:px-10 lg:px-20 xl:px-40">
         <h2 className="text-4xl text-center py-6 text-[#3A4FFE] font-bold mb-4">
           What will you gain?

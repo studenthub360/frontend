@@ -3,7 +3,7 @@ import macbook from "./images/macbook.png";
 
 const AboutUs = () => {
   return (
-    <div className="mt-8 bg-[#F0F9FB] w-full p-4 lg:p-8 xl:p-16">
+    <div id="aboutus" className="mt-8 bg-[#F0F9FB] w-full p-4 lg:p-8 xl:p-16">
       <div className="flex flex-col lg:flex-row items-center justify-center">
         <div className="order-2 lg:order-1">
           <img
