@@ -27,7 +27,7 @@ const Hero = () => {
             Monitor and manage your expenses with ease.
           </p>
           <Link to="/expense-tracker">
-            <button className="bg-[#3B50FE] hover:bg-gradient-to-r from-blue-500 via-pink-500 to-blue-500 w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">
+            <button className="bg-[#3B50FE] hover:bg-gradient-to-r from-blue-500 via-[#F0F9FB] to-blue-500 w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">
               Get Started
             </button>
           </Link>

@@ -53,7 +53,7 @@ const ExpenseTracker = () => {
   const categories = Array.from(new Set(expenses.map((expense) => expense.category)));
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-pink-500 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-[#F0F9FB] to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-md">
         <div className="px-6 py-4">
           <h1 className="text-3xl font-bold mb-4 text-[#1b1963]">Expense Tracker</h1>
