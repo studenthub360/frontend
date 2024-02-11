@@ -52,8 +52,8 @@ const Scheduling = () => {
             />
           </div>
           <div className="flex gap-10">
-            <div className="mb-4 w-full lg:w-1/2">
-              <label className="font-bold block" htmlFor="eventDate">
+            <div className=" block lg:w-1/2">
+              <label className="font-bold " htmlFor="eventDate">
                 Set Date:
               </label>
               <DatePicker
