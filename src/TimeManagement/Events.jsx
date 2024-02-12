@@ -1,5 +1,11 @@
-// Events.js
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/effect-coverflow";
+import "swiper/css/autoplay";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -7,27 +13,32 @@ const Events = () => {
   const [eventLocation, setEventLocation] = useState("");
   const [eventDateTime, setEventDateTime] = useState("");
   const [eventDescription, setEventDescription] = useState("");
+  const [eventImage, setEventImage] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const swiperRef = useRef(null);
 
   const addEvent = () => {
     const newEvent = {
+      id: Date.now(),
       name: eventName,
       location: eventLocation,
       dateTime: eventDateTime,
       description: eventDescription,
+      image: eventImage,
     };
+
     setEvents([...events, newEvent]);
     // Reset form fields
     setEventName("");
     setEventLocation("");
     setEventDateTime("");
     setEventDescription("");
+    setEventImage(null);
+
+    // Update Swiper after adding a new event
+    swiperRef.current.update();
   };
 
-  const removeEvent = (index) => {
-    const updatedEvents = [...events];
-    updatedEvents.splice(index, 1);
-    setEvents(updatedEvents);
-  };
   const formatDateTime = (dateTimeString) => {
     const options = {
       weekday: "long",
@@ -40,14 +51,77 @@ const Events = () => {
     };
     return new Date(dateTimeString).toLocaleString(undefined, options);
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setEventImage(file);
+  };
+
+  const showEventDetails = (id) => {
+    const selected = events.find((event) => event.id === id);
+    setSelectedEvent(selected);
+  };
+
+  const prevSlide = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slidePrev();
+    }
+  };
+
+  const nextSlide = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  };
+
+  const dummyEvents = [
+    {
+      id: 1,
+      name: "Event 1",
+      location: "Location 1",
+      dateTime: "2024-02-14T12:00",
+      description: "Description 1",
+      image: null,
+    },
+    // {
+    //   id: 2,
+    //   name: "Event 2",
+    //   location: "Location 2",
+    //   dateTime: "2024-02-15T14:30",
+    //   description: "Description 2",
+    //   image: null,
+    // },
+    // {
+    //   id: 3,
+    //   name: "Event 3",
+    //   location: "Location 3",
+    //   dateTime: "2024-02-16T18:45",
+    //   description: "Description 3",
+    //   image: null,
+    // },
+    // {
+    //   id: 4,
+    //   name: "Event 4",
+    //   location: "Location 4",
+    //   dateTime: "2024-02-17T09:15",
+    //   description: "Description 4",
+    //   image: null,
+    // },
+  ];
+
+  // Initialize with dummy events
+  useState(() => {
+    setEvents(dummyEvents);
+  }, []);
+
   return (
-    <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-8">
+    <div className="block lg:flex-row space-x-0 lg:space-x-8">
       <div className="w-full lg:w-1/2 p-4">
         <h2 className="text-2xl font-bold mb-4">Events</h2>
 
         {/* Form to add new events */}
         <form className="lg:flex flex-grow lg:flex-wrap">
-          <div className="mb-4 px-2 w-full lg:w-1/2">
+          <div className="mb-4 pr-2 w-full lg:w-1/2">
             <label className="font-bold" htmlFor="eventName">
               Event Name:
             </label>
@@ -94,6 +168,17 @@ const Events = () => {
               className="p-2 border-black rounded-lg w-full border"
             />
           </div>
+          <div className="mb-4 w-full">
+            <label className="font-bold" htmlFor="eventImage">
+              Event Image:
+            </label>
+            <input
+              type="file"
+              id="eventImage"
+              onChange={handleImageChange}
+              className="p-1 w-full border border-black rounded-lg"
+            />
+          </div>
 
           <button
             type="button"
@@ -103,46 +188,72 @@ const Events = () => {
             ADD
           </button>
         </form>
-        <ul className="w-full mt-4">
-          {events.map((event, index) => (
-            <li
-              key={index}
-              className="flex flex-col lg:flex-row justify-between items-center p-2 border-b"
-            >
-              <div className="mb-2 lg:mb-0">
-                <span className="font-semibold">{event.name}</span> -{" "}
-                {event.location}, {event.dateTime}
-                <p>{event.description}</p>
-              </div>
-              <button
-                onClick={() => removeEvent(index)}
-                className="text-red-500 mt-2 lg:mt-0"
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
       </div>
 
-      <div className="w-full lg:w-1/2 p-4">
-        {/* Slider display */}
-        <h2 className="text-2xl font-bold mb-4">Events Slider</h2>
-        {/* Add your slider component or integrate a slider library here */}
-        {/* Replace this with your actual slider component */}
-        <div className="border p-2">
-          {/* Sample slider content */}
-          {events.map((event, index) => (
-            <div key={index} className="mb-2">
-              <h3 className="font-semibold">{event.name}</h3>
-              <p>
-                {event.location}, {formatDateTime(event.dateTime)}{" "}
-              </p>
-              <p>{event.description}</p>
-            </div>
+      {/* <div className="w-full lg:w-min p-4">
+        <h2 className="text-2xl font-bold mb-4">Recent Events</h2>
+       
+        <Swiper
+          ref={swiperRef}
+          slidesPerView={2}
+          spaceBetween={30}
+          navigation
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+        >
+          {events.map((event) => (
+            <SwiperSlide key={event.id}>
+              <div className="w-full p-2">
+                <div className="border p-4 rounded-md">
+                  {event.image && (
+                    <img
+                      src={
+                        typeof event.image === "string"
+                          ? event.image
+                          : URL.createObjectURL(event.image)
+                      }
+                      alt={event.name}
+                      className="mt-2 w-full h-32 object-cover rounded-md"
+                    />
+                  )}
+                  <h3 className="font-semibold text-center">{event.name}</h3>
+                  {selectedEvent && (
+                    <div className="w-full p-4">
+                      <div className="">
+                        <p>{selectedEvent.location}</p>
+                        <p>{formatDateTime(selectedEvent.dateTime)}</p>
+                        <p>{selectedEvent.description}</p>
+                      </div>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => showEventDetails(event.id)}
+                    className="text-[#3B50FE] mt-2"
+                  >
+                    Show Details
+                  </button>
+                </div>
+              </div>
+            </SwiperSlide>
           ))}
+        </Swiper>
+
+     
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={prevSlide}
+            className="bg-[#3B50FE] rounded-lg text-white py-2 px-6"
+          >
+            Prev
+          </button>
+          <button
+            onClick={nextSlide}
+            className="bg-[#3B50FE] rounded-lg text-white py-2 px-6"
+          >
+            Next
+          </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

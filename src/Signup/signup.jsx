@@ -1,18 +1,139 @@
 // SignUp.js
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import signup from "./images/Group_9.png";
+import axios from "axios";
+import Swal from 'sweetalert2'
+import { data } from "autoprefixer";
+// import dotenv from 'dotenv'
+// dotenv.config()
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [level, setLevel] = useState("");
   const [university, setUniversity] = useState("");
   const [password, setPassword] = useState("");
+  const [department, setDepartment] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  // const signupApiLink = process.env.REACT_APP_Signup_api_link;
+  let signupApiLink = 'https://student360-api.onrender.com/api/reg'
+  const handleSignUp = async () => {
+      // Make HTTP POST request to the registration endpoint
+      console.log('before')
+  // await axios.post(
+  //      signupApiLink,
+  //       {
+  //         fullName,
+  //         password,
+  //         level,
+  //         email,
+  //         department,
+  //         university,
+  //       })
+  //     .then((response) => {
+  //       console.log('after')
+  //       // Handle successful login
+  //       console.log("Signup successful", response.data);
+  //       navigate("/login");
+  //     })
+  //     .catch((error) => {
+  //       console.log("An Error Occured : "+ error)
+  //       if (error.response.data) {
+  //         // Toast(error.response.data.error);
+  //         const Toast = Swal.mixin({
+  //           toast: true,
+  //           position: "top-end",
+  //           showConfirmButton: false,
+  //           timer: 3000,
+  //           timerProgressBar: true,
+  //           didOpen: (toast) => {
+  //             toast.onmouseenter = Swal.stopTimer;
+  //             toast.onmouseleave = Swal.resumeTimer;
+  //           },
+  //         });
+  //         Toast.fire({
+  //           icon: "error",
+  //           title:`${error.response.data.error}`
+  //         });
+  //       }
+  //     });
 
-  const handleSignUp = () => {
-    // Implement your sign-up logic here
-    console.log("Signing up with:", fullName, email, university, password);
+
+  // BETA
+  fetch(signupApiLink, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    // Other headers as needed
+  },
+  body: JSON.stringify(
+    {
+              fullName,
+              password,
+              level,
+              email,
+              department,
+              university,
+            }
+  )
+})
+  .then(async (response) => {
+console.log(response.status)
+    if(response.status != 201){
+      let data = await response.json()
+      if(data.message) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "error",
+          title:`${data.message}`
+        });
+      }
+      throw new Error("An Error Occured!")
+      return 
+      
+    } 
+
+    if(response.status == 201 ) response.json()
+
+  })
+  .then((data) => {
+    //TODO here
+    console.log(data)
+    navigate("/login");
+  })
+  .catch((error) => {
+          console.log("An Error Occured : "+ error)
+          // if (error.response.data) {
+          //   // Toast(error.response.data.error);
+          //   const Toast = Swal.mixin({
+          //     toast: true,
+          //     position: "top-end",
+          //     showConfirmButton: false,
+          //     timer: 3000,
+          //     timerProgressBar: true,
+          //     didOpen: (toast) => {
+          //       toast.onmouseenter = Swal.stopTimer;
+          //       toast.onmouseleave = Swal.resumeTimer;
+          //     },
+          //   });
+          //   Toast.fire({
+          //     icon: "error",
+          //     title:`${error.response.data.error}`
+          //   });
+          // }
+        })
   };
 
   return (
@@ -61,6 +182,44 @@ const SignUp = () => {
               />
             </div>
             <div className="mb-4">
+              <label htmlFor="level" className="block text-sm font-medium">
+                Level:
+              </label>
+              {/* Replace the options with your desired university options */}
+              <select
+                id="Level"
+                className="mt-1 p-2 w-full border border-black rounded-md"
+                onChange={(e) => setLevel(e.target.value)}
+              >
+                <option value="">Select Level</option>
+                <option value="level1">100</option>
+                <option value="level2">200</option>
+                <option value="level3">300</option>
+                <option value="level4">400</option>
+                <option value="level5">500</option>
+                <option value="level6">600</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="department" className="block text-sm font-medium">
+                Department:
+              </label>
+              {/* Replace the options with your desired university options */}
+              <select
+                id="Department"
+                className="mt-1 p-2 w-full border border-black rounded-md"
+                onChange={(e) => setDepartment(e.target.value)}
+              >
+                <option value="">Select Department</option>
+                <option value="department1">se</option>
+                <option value="department2">cs</option>
+                <option value="department3">it</option>
+                <option value="department4">cis</option>
+                <option value="department5">mb</option>
+                <option value="department6">bio</option>
+              </select>
+            </div>
+            <div className="mb-4">
               <label htmlFor="university" className="block text-sm font-medium">
                 University:
               </label>
@@ -100,14 +259,14 @@ const SignUp = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-            <Link to="/login">
-            <button
-              type="button"
-              className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
-              onClick={handleSignUp}
-            >
-              Sign Up
-            </button>
+            <Link>
+              <button
+                type="button"
+                className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
+                onClick={handleSignUp}
+              >
+                Sign Up
+              </button>
             </Link>
           </form>
           <p className="mt-4 text-sm text-center lg:text-center">

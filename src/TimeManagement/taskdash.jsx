@@ -8,7 +8,7 @@ const TimeManagement = () => {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen w-full overflow-x-hidden ">
       <Sidebar />
-      <div className="flex-grow p-8">
+      <div className="flex-grow p-8 ">
         {/* Main Content for Time Management */}
         <div className="flex flex-col lg:flex-row justify-between">
           <h1 className="text-3xl font-bold text-[#3B50FE] hidden lg:block mb-4">

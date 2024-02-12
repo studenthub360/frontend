@@ -42,7 +42,7 @@ const Navbar = () => {
     <nav
       className={`bg-white shadow-md ${isSticky ? "sticky top-0 z-50" : ""}`}
     >
-      <div className="container mx-auto px-4 lg:px-0">
+      <div className="container mx-auto px-4 items-start lg:px-1">
         <div className="py-3 flex justify-between items-center">
           <div className="flex items-center">
             <Link
@@ -83,13 +83,13 @@ const Navbar = () => {
 
           <div className="hidden lg:flex">
             <Link to="/signup">
-              <button className={`font-semibold mx-5`}>Sign Up</button>
+              <button className={`font-semibold px-4 py-1`}>Sign Up</button>
             </Link>
             <Link to="/login">
               <button
                 className={`bg-[#3A4FFE] font-semibold text-${
                   isSticky ? "white" : "white"
-                } px-4 py-1 rounded-lg `}
+                }  px-4 py-1  rounded-lg `}
               >
                 Log in
               </button>

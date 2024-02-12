@@ -49,7 +49,7 @@ const Scheduling = () => {
 
         {/* Form to add new events */}
         <form className="lg:flex flex-wrap">
-          <div className="mb-4 w-full px-2 lg:w-1/2">
+          <div className="mb-4 w-full pr-2 lg:w-1/2">
             <label className="font-bold" htmlFor="eventName">
               Event Name:
             </label>
