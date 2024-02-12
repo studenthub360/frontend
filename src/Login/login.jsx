@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const loginApiLink = process.env.REACT_APP_Login_api_link;
+  const loginApiLink = 'https://student360-api.onrender.com/api/reg';
   const handleLogin = async () => {
     try {
       const response = await fetch(loginApiLink, {
