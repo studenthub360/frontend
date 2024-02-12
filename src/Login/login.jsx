@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import loginPic from "./images/image.png";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -37,8 +37,8 @@ const Login = () => {
           title: `login successful`,
         });
 
-        const jwtCookie = Cookies.get("jwt");
-        console.log("JWT Cookie:", jwtCookie);
+        // const jwtCookie = Cookies.get("jwt");
+        // console.log("JWT Cookie:", jwtCookie);
 
         // console.log(response.headers)
 

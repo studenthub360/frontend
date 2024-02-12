@@ -137,7 +137,7 @@ console.log(response.status)
   };
 
   return (
-    <div className="flex flex-col lg:flex-row max-h-screen items-center overflow-hidden bg-white">
+    <div className="flex flex-col lg:flex-row max-h-screen items-center  bg-white">
       {/* Image on the left (hidden in mobile view) */}
       <img
         src={signup}
