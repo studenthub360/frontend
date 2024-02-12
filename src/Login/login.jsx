@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import loginPic from "./images/image.png";
 import Swal from "sweetalert2";
-// import Cookies from "js-cookie";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,60 +11,64 @@ const Login = () => {
   const navigate = useNavigate();
   const loginApiLink = process.env.REACT_APP_Login_api_link;
   const handleLogin = async () => {
-    // Make an HTTP request to the login API endpoint
-    await axios
-      .post(loginApiLink, {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        // Handle successful login
-        console.log("Login successful", response.data);
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: `login successful`,
-        });
-
-        // const jwtCookie = Cookies.get("jwt");
-        // console.log("JWT Cookie:", jwtCookie);
-
-        // console.log(response.headers)
-
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        if (error.response.data) {
-          // Toast(error.response.data.error);
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: `${error.response.data.error}`,
-          });
-        }
+    try {
+      const response = await fetch(loginApiLink, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+      }
+
+      const responseData = await response.json();
+      console.log("Login successful", responseData);
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+
+      Toast.fire({
+        icon: "success",
+        title: `Login successful`,
+      });
+
+      navigate("/dashboard");
+    } catch (error) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: `${error.message}`,
+      });
+    }
   };
+
 
   return (
     <div className="flex flex-col lg:flex-row  max-h-screen items-center overflow-hidden  bg-white">
