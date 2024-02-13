@@ -14,10 +14,10 @@ const Navbar = () => {
       <h1 className='w-full text-3xl font-bold text-[#3B50FE]'>Spend w Me.</h1>
       <ul className='hidden md:flex'>
         <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/">Home</Link></li>
-        <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/company">Time Management</Link></li>
+        {/* <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/company">Time Management</Link></li>
         <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/resources">Resources</Link></li>
         <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/about">About</Link></li>
-        <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/contact">Contact</Link></li>
+        <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/contact">Contact</Link></li> */}
       </ul>
       <div onClick={handleNav} className='block md:hidden'>
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -26,10 +26,10 @@ const Navbar = () => {
         <h1 className='w-full text-3xl font-bold text-[#3B50FE] m-4'>Spend w Me.</h1>
         <ul className='p-4 uppercase'>
           <li className='p-4 border-b border-gray-600'><Link to="/">Home</Link></li>
-          <li className='p-4 border-b border-gray-600'><Link to="/company">Company</Link></li>
+          {/* <li className='p-4 border-b border-gray-600'><Link to="/company">Company</Link></li>
           <li className='p-4 border-b border-gray-600'><Link to="/resources">Resources</Link></li>
           <li className='p-4 border-b border-gray-600'><Link to="/about">About</Link></li>
-          <li className='p-4'><Link to="/contact">Contact</Link></li>
+          <li className='p-4'><Link to="/contact">Contact</Link></li> */}
         </ul>
       </div>
     </div>

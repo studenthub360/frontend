@@ -1,16 +1,74 @@
-// Login.js
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"; // Import axios
 import loginPic from "./images/image.png";
+import Swal from "sweetalert2";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const loginApiLink = 'https://student360-api.onrender.com/api/auth';
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(loginApiLink, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    console.log("Logging in with:", email, password);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+      }
+
+      const responseData = await response.json();
+      console.log("Login successful", responseData);
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+
+      Toast.fire({
+        icon: "success",
+        title: `Login successful`,
+      });
+
+      navigate("/dashboard");
+    } catch (error) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: `${error.message}`,
+      });
+    }
   };
+
 
   return (
     <div className="flex flex-col lg:flex-row  max-h-screen items-center overflow-hidden  bg-white">
@@ -61,7 +119,7 @@ const Login = () => {
                 <Link to="/forgot-password">Forgot Password?</Link>
               </p>
             </div>
-            <Link to="/dashboard">
+            <Link>
               <button
                 type="button"
                 className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
@@ -82,5 +140,7 @@ const Login = () => {
     </div>
   );
 };
+
+export function get_user() {}
 
 export default Login;
