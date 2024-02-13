@@ -5,6 +5,7 @@ import task from "./images/task.png";
 import event from "./images/event.png";
 import logout from "./images/logout.png";
 import logoutblack from "./images/logoutblack.png";
+import vector from "./images/Vector.png";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,24 +20,18 @@ const Sidebar = () => {
 
   return (
     <div className="lg:bg-[#3B50FE] bg-white h-2 lg:h-auto w-1/6 p-4 lg:p-0 overflow-hidden flex flex-col justify-between">
-      <ul className={`hidden lg:block text-black p-5 lg:text-white font-bold`}>
-        <div>
-          <li className="p-4 ">
-            <Link to="/dashboard/time-management" className="flex gap-2">
-              <img src={calen} className="w-6 " />
-              Scheduling
+      <ul className={`hidden lg:block text-black p-2 lg:text-white font-bold`}>
+        <div className="my-2">
+          <li className="p-2 ">
+            <Link to="/groups" className="flex gap-2">
+              <img src={vector} className="w-6 " />
+              Networking Groups
             </Link>
           </li>
-          <li className="p-4">
-            <Link to="/tasksdah" className="flex gap-2">
-              <img src={task} className="w-6 " />
-              Tasks
-            </Link>
-          </li>
-          <li className="p-4">
-            <Link to="/dashboard/time-management/events" className="flex gap-2">
+          <li className="p-2">
+            <Link to="/groups/events" className="flex gap-2">
               <img src={event} className="w-6 " />
-              Events
+              Networking Events
             </Link>
           </li>
         </div>
@@ -67,25 +62,18 @@ const Sidebar = () => {
         <div className="lg:hidden fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-5">
           <div className="flex flex-col space-y-2 text-black lg:text-white font-bold overflow-auto">
             <Link
-              to="/dashboard/time-management"
+              to="/groups"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >
-              Scheduling
+              Networking Groups
             </Link>
             <Link
-              to="/tasksdah"
+              to="/groups/events"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >
-              Tasks
-            </Link>
-            <Link
-              to="/dashboard/time-management/events"
-              className="block p-4 hover:bg-gray-100 rounded"
-              onClick={closeSidebar}
-            >
-              Events
+              Networking Events
             </Link>
             <Link to="/" className="flex gap-2">
               <img src={logoutblack} className=" w-5 ml-4   " />

@@ -2,18 +2,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import image from "./images/Ellipse 86.png";
-import vector from "./images/Vector.png";
-import search from "./images/search.png";
+import vector from "./images/Vector2.png";
 
 const Navbar = () => {
   return (
-    <nav className="bg-white text-white p-4 border-b">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="bg-white lg:block hidden text-white p-4 border-b">
+      <div className="container  flex justify-between items-center">
         <Link
           to="/"
-          className=" hidden lg:block lg:text-2xl text-[#1942A6]  font-bold"
+          className="hidden lg:flex text-2xl  text-[#3B4FFE]  font-semibold"
         >
-          Welcome Williams!
+          <h1 className="font-serif">Studenthub</h1>{" "}
+          <h1 className="text-[#3B4FFE] font-magiona-display">360</h1>
         </Link>
         <div className="flex items-center space-x-4 sm:space-x-8 md:space-x-12 lg:space-x-16">
           {/* <div className="border flex p-2 lg:p-3 rounded-full">
