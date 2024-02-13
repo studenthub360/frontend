@@ -10,6 +10,8 @@ import Tasksdah from "./TimeManagement/taskdash";
 import FinanceDashboard from "./FinanceManagement/LandingPage";
 import ExpenseTracker from "./FinanceManagement/ExpenseTracker";
 import Events from "./TimeManagement/eventdash";
+import Groups from "./SocialNetworking/Dashboard";
+import Nevents from "./SocialNetworking/eventdashboard"
 
 
 function App() {
@@ -26,7 +28,8 @@ function App() {
       <Route path="/financial" element={<FinanceDashboard />} />
       <Route path="/expense-tracker" element={<ExpenseTracker />} />
       <Route path="/dashboard/time-management/events" element={<Events />} />
-      
+      <Route path="/groups" element={<Groups />} />
+      <Route path="/groups/events" element={<Nevents />} />
     </Routes>
   );
 }
