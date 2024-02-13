@@ -74,6 +74,7 @@ const SignUp = () => {
         email,
         department,
         university,
+        confirmPassword,
       }),
     })
       .then(async (response) => {
