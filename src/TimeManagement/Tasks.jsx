@@ -1,20 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
+  const [description, setTaskDescription] = useState("");
   const [filterCompleted, setFilterCompleted] = useState(false);
 
+  useEffect(() => {
+    // Fetch tasks from the API when the component mounts
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = () => {
+    const token = localStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+
+    fetch("https://student360-api.onrender.com/api/task", {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch tasks");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setTasks(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching tasks:", error);
+      });
+  };
+
   const addTask = () => {
+    const token = localStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+
     const newTask = {
       name: taskName,
-      description: taskDescription,
-      completed: false,
+      description: description,
     };
-    setTasks([...tasks, newTask]);
-    setTaskName("");
-    setTaskDescription("");
+
+    // Make a POST request to the API to create a new task
+    fetch("https://student360-api.onrender.com/api/task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify(newTask),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to add task");
+        }
+        return response.json();
+      })
+      .then(() => {
+        // Fetch tasks again after successfully adding a new task
+        fetchTasks();
+        setTaskName("");
+        setTaskDescription("");
+      })
+      .catch((error) => {
+        console.error("Error adding task:", error);
+      });
   };
 
   const removeTask = (index) => {
@@ -58,7 +108,7 @@ const Tasks = () => {
             </label>
             <textarea
               id="taskDescription"
-              value={taskDescription}
+              value={description}
               onChange={(e) => setTaskDescription(e.target.value)}
               className="p-2 border-black rounded-lg w-full border"
             />
@@ -83,7 +133,7 @@ const Tasks = () => {
               onClick={() => setFilterCompleted(!filterCompleted)}
               className="bg-[#3B50FE] rounded-lg text-white py-1 px-1 mt-1 lg:mt-0"
             >
-              {filterCompleted ? "pending" : "complete"}
+              {filterCompleted ? "Pending" : "Completed"}
             </button>
           </div>
           {filteredTasks.map((task, index) => (
@@ -104,11 +154,11 @@ const Tasks = () => {
                   onClick={() => toggleTaskStatus(index)}
                   className={`text-${
                     task.completed
-                      ? "white bg-red-600 p-1 rounded-lg"
-                      : "white bg-blue-600 p-1 rounded-lg"
+                      ? "white bg-blue-600 p-1 rounded-lg"
+                      : "white bg-red-600 p-1 rounded-lg"
                   } mr-2`}
                 >
-                  {task.completed ? "Pending" : "Completed"}
+                  {task.completed ? "Completed" : "Pending"}
                 </button>
                 <button
                   onClick={() => removeTask(index)}

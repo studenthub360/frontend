@@ -5,7 +5,9 @@ import task from "./images/task.png";
 import event from "./images/event.png";
 import logout from "./images/logout.png";
 import logoutblack from "./images/logoutblack.png";
-import vector from "./images/Vector.png";
+import stress from "./images/stress.png";
+import coping from "./images/coping.png";
+import playlist from "./images/playlist.png";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,18 +22,24 @@ const Sidebar = () => {
 
   return (
     <div className="lg:bg-[#3B50FE] bg-white h-2 lg:h-auto w-1/6 p-4 lg:p-0 overflow-hidden flex flex-col justify-between">
-      <ul className={`hidden lg:block text-black p-2 lg:text-white font-bold`}>
-        <div className="my-2">
-          <li className="p-2 ">
-            <Link to="/groups" className="flex gap-2">
-              <img src={vector} className="w-6 " />
-              Networking Groups
+      <ul className={`hidden lg:block text-black p-5 lg:text-white font-bold`}>
+        <div>
+          <li className="p-4 ">
+            <Link to="/dashboard/time-management" className="flex gap-2">
+              <img src={stress} className="w-8 h-8 " />
+              Stress Management
             </Link>
           </li>
-          <li className="p-2">
-            <Link to="/groups/events" className="flex gap-2">
-              <img src={event} className="w-6 " />
-              Networking Events
+          <li className="p-4">
+            <Link to="/tasksdah" className="flex gap-2">
+              <img src={coping} className="w-8 h-8 " />
+              Coping Strategies
+            </Link>
+          </li>
+          <li className="p-4">
+            <Link to="/wellbeing" className="flex gap-2">
+              <img src={playlist} className="w-8 h-8" />
+              Shared Playlist
             </Link>
           </li>
         </div>
@@ -59,21 +67,28 @@ const Sidebar = () => {
 
       {/* Mobile sidebar */}
       {isOpen && (
-        <div className="lg:hidden  sticky top-0 left-0 h-full w-4/5 bg-white shadow-md p-5">
+        <div className="lg:hidden fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-5">
           <div className="flex flex-col space-y-2 text-black lg:text-white font-bold overflow-auto">
             <Link
-              to="/groups"
+              to="/dashboard/time-management"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >
-              Networking Groups
+              Stress Management
             </Link>
             <Link
-              to="/groups/events"
+              to="/tasksdah"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >
-              Networking Events
+              Coping Strategies
+            </Link>
+            <Link
+              to="/dashboard/time-management/events"
+              className="block p-4 hover:bg-gray-100 rounded"
+              onClick={closeSidebar}
+            >
+              Shared Playlist
             </Link>
             <Link to="/" className="flex gap-2">
               <img src={logoutblack} className=" w-5 ml-4   " />

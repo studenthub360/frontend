@@ -11,7 +11,8 @@ import FinanceDashboard from "./FinanceManagement/LandingPage";
 import ExpenseTracker from "./FinanceManagement/ExpenseTracker";
 import Events from "./TimeManagement/eventdash";
 import Groups from "./SocialNetworking/Dashboard";
-import Nevents from "./SocialNetworking/eventdashboard"
+import Nevents from "./SocialNetworking/eventdashboard";
+import Stress from "./wellbeing/Dashboard";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path="/dashboard/time-management/events" element={<Events />} />
       <Route path="/groups" element={<Groups />} />
       <Route path="/groups/events" element={<Nevents />} />
+      <Route path="/wellbeing" element={<Stress />} />
     </Routes>
   );
 }

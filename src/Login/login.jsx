@@ -22,14 +22,21 @@ const Login = () => {
           password: password,
         }),
       });
+      
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error);
       }
+      console.log(response.data);
+      
 
       const responseData = await response.json();
       console.log("Login successful", responseData);
+      const token = responseData.token;
+
+      // Store the token in localStorage
+      localStorage.setItem("accessToken", token);
 
       const Toast = Swal.mixin({
         toast: true,
