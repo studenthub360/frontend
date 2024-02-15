@@ -13,7 +13,7 @@ import Events from "./TimeManagement/eventdash";
 import Groups from "./SocialNetworking/Dashboard";
 import Nevents from "./SocialNetworking/eventdashboard";
 import Stress from "./wellbeing/Dashboard";
-
+import { inject } from '@vercel/analytics';
 
 function App() {
   return (
@@ -32,8 +32,10 @@ function App() {
       <Route path="/groups" element={<Groups />} />
       <Route path="/groups/events" element={<Nevents />} />
       <Route path="/wellbeing" element={<Stress />} />
+      
     </Routes>
+    
   );
 }
-
+inject();
 export default App;
