@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("accessToken");
+    const storedToken = sessionStorage.getItem("accessToken");
 
     if (!storedToken) {
       setIsLoading(false);
@@ -36,11 +36,11 @@ const Navbar = () => {
         setIsLoading(false);
 
         // Access individual properties if needed
-        const userId = result.id;
-        const userEmail = result.email;
-        const userLevel = result.level;
-        const userDepartment = result.department;
-        const userUniversity = result.university;
+        // const userId = result.id;
+        // const userEmail = result.email;
+        // const userLevel = result.level;
+        // const userDepartment = result.department;
+        // const userUniversity = result.university;
 
         // Do something with the retrieved data
       })

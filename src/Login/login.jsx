@@ -36,7 +36,7 @@ const Login = () => {
       const token = responseData.token;
 
       // Store the token in localStorage
-      localStorage.setItem("accessToken", token);
+      sessionStorage.setItem("accessToken", token);
 
       const Toast = Swal.mixin({
         toast: true,

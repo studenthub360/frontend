@@ -19,7 +19,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="lg:bg-[#3B50FE] bg-white h-2 lg:h-auto w-1/6 p-4 lg:p-0 overflow-hidden flex flex-col justify-between">
+    <div className="lg:bg-[#3B50FE]  bg-white h-2 lg:h-auto w-1/12 p-4 lg:p-0 overflow-hidden flex flex-col justify-between">
       <ul className={`hidden lg:block text-black p-2 lg:text-white font-bold`}>
         <div className="my-2">
           <li className="p-2 ">
@@ -59,7 +59,7 @@ const Sidebar = () => {
 
       {/* Mobile sidebar */}
       {isOpen && (
-        <div className="lg:hidden  sticky top-0 left-0 h-full w-4/5 bg-white shadow-md p-5">
+        <div className="lg:hidden  fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-5">
           <div className="flex flex-col space-y-2 text-black lg:text-white font-bold overflow-auto">
             <Link
               to="/groups"

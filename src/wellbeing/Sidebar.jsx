@@ -84,7 +84,7 @@ const Sidebar = () => {
               Coping Strategies
             </Link>
             <Link
-              to="/dashboard/time-management/events"
+              to="/wellbeing"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >

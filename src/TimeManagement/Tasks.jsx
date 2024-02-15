@@ -12,7 +12,7 @@ const Tasks = () => {
   }, []);
 
   const fetchTasks = () => {
-    const token = localStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+    const token = sessionStorage.getItem("accessToken"); // Assuming you store the token in localStorage
 
     fetch("https://student360-api.onrender.com/api/task", {
       headers: {
@@ -34,10 +34,10 @@ const Tasks = () => {
   };
 
   const addTask = () => {
-    const token = localStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+    const token = sessionStorage.getItem("accessToken"); // Assuming you store the token in sessionStorage
 
     const newTask = {
-      name: taskName,
+      taskName: taskName,
       description: description,
     };
 
@@ -73,11 +73,43 @@ const Tasks = () => {
     setTasks(updatedTasks);
   };
 
-  const toggleTaskStatus = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
+  const toggleTaskStatus = (taskId) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        task.completed = !task.completed;
+        task.updateTask = task.completed ? '1' : '0';
+      }
+      return task;
+    });
+  
     setTasks(updatedTasks);
+  
+    const token = sessionStorage.getItem('accessToken');
+    fetch(`https://student360-api.onrender.com/api/task/${taskId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify({ updateTask: updatedTasks.find((task) => task.id === taskId).updateTask }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to update task status');
+        }
+        return response.json();
+      })
+      .then(() => {
+        // Fetch tasks again after successfully updating task status
+        fetchTasks();
+      })
+      .catch((error) => {
+        console.error('Error updating task status:', error);
+      });
   };
+  
+
+  
 
   const filteredTasks = filterCompleted
     ? tasks.filter((task) => task.completed)
@@ -136,29 +168,29 @@ const Tasks = () => {
               {filterCompleted ? "Pending" : "Completed"}
             </button>
           </div>
-          {filteredTasks.map((task, index) => (
+          {filteredTasks.map((task,index) => (
             <li
-              key={index}
+              key={task.id}
               className={`flex justify-between items-center  p-5 border-b ${
                 task.completed ? "bg-white p-5" : ""
               }`}
             >
               <div className="">
                 <span className="font-semibold">
-                  {index + 1}. {task.name}
+                  {index + 1}. {task.taskName}
                 </span>
                 <p>{task.description}</p>
               </div>
               <div>
                 <button
-                  onClick={() => toggleTaskStatus(index)}
+                  onClick={() => toggleTaskStatus(task.id)}
                   className={`text-${
                     task.completed
                       ? "white bg-blue-600 p-1 rounded-lg"
                       : "white bg-red-600 p-1 rounded-lg"
                   } mr-2`}
                 >
-                  {task.completed ? "Completed" : "Pending"}
+                  {task.completed ? 'Completed' : 'Pending'}
                 </button>
                 <button
                   onClick={() => removeTask(index)}

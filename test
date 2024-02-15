@@ -15,7 +15,7 @@ const Scheduling = () => {
     const updatedSchedules = [...schedules];
     updatedSchedules.splice(index, 1);
     setSchedules(updatedSchedules);
-    localStorage.setItem("schedules", JSON.stringify(updatedSchedules));
+    sessionStorage.setItem("schedules", JSON.stringify(updatedSchedules));
   };
 
   const formatDateTime = (dateTimeString) => {
