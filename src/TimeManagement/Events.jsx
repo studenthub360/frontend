@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Carousel from "react-elastic-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 const Events = () => {
   const [eventName, setEventName] = useState("");
@@ -198,17 +199,56 @@ const Events = () => {
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-4 text-center">Added Events</h2>
         <Carousel
-          itemsToShow={3}
-          pagination={false}
-          breakPoints={[
-            { width: 1, itemsToShow: 1 },
-            { width: 550, itemsToShow: 2 },
-            { width: 768, itemsToShow: 3 },
-            { width: 1200, itemsToShow: 4 },
-          ]}
+          showArrows={true}
+          showThumbs={false}
+          infiniteLoop={true}
+          useKeyboardArrows={true}
+          interval={5000} // Adjust the interval as needed
+          emulateTouch={true}
+          swipeScrollTolerance={5}
+          renderArrowPrev={(onClickHandler, hasPrev, label) =>
+            hasPrev && (
+              <button
+                type="button"
+                onClick={onClickHandler}
+                title={label}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: 15,
+                  zIndex: 2,
+                  cursor: "pointer",
+                  fontSize: 30,
+                  color: "black", // Change the arrow color here
+                }}
+              >
+                {"<"}
+              </button>
+            )
+          }
+          renderArrowNext={(onClickHandler, hasNext, label) =>
+            hasNext && (
+              <button
+                type="button"
+                onClick={onClickHandler}
+                title={label}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: 15,
+                  zIndex: 2,
+                  cursor: "pointer",
+                  fontSize: 30,
+                  color: "black", // Change the arrow color here
+                }}
+              >
+                {">"}
+              </button>
+            )
+          }
         >
           {[...addedEvents].map((event) => (
-            <div key={event.id} className="px-2">
+            <div key={event.id} className="carousel-item px-2 ">
               <div className="border rounded-lg overflow-hidden">
                 {event.image && (
                   <img
