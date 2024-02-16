@@ -1,3 +1,4 @@
+// Navbar.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,11 +27,22 @@ const Navbar = () => {
     };
   }, []);
 
+  const scrollToAboutUs = () => {
+    const aboutUsSection = document.getElementById("aboutus");
+    aboutUsSection.scrollIntoView({ behavior: "smooth" });
+    closeDropdown();
+  };
+  const scrollToBenefits = () => {
+    const aboutUsSection = document.getElementById("benefits");
+    aboutUsSection.scrollIntoView({ behavior: "smooth" });
+    closeDropdown();
+  };
+
   return (
     <nav
       className={`bg-white shadow-md ${isSticky ? "sticky top-0 z-50" : ""}`}
     >
-      <div className="container mx-auto px-4 lg:px-0">
+      <div className="container mx-auto px-4 items-start lg:px-1">
         <div className="py-3 flex justify-between items-center">
           <div className="flex items-center">
             <Link
@@ -43,28 +55,25 @@ const Navbar = () => {
           </div>
           <div className="hidden lg:flex space-x-10">
             <Link
-              to="/home"
+              to="/"
               onClick={closeDropdown}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               Home
             </Link>
             <Link
-              to="/about"
-              onClick={closeDropdown}
+              onClick={scrollToAboutUs}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               About
             </Link>
             <Link
-              to="/benefits"
-              onClick={closeDropdown}
+              onClick={scrollToBenefits}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               Benefits
             </Link>
             <Link
-              to="/contact"
               onClick={closeDropdown}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
@@ -74,13 +83,13 @@ const Navbar = () => {
 
           <div className="hidden lg:flex">
             <Link to="/signup">
-              <button className={`font-semibold mx-5`}>Sign Up</button>
+              <button className={`font-semibold px-4 py-1`}>Sign Up</button>
             </Link>
             <Link to="/login">
               <button
                 className={`bg-[#3A4FFE] font-semibold text-${
                   isSticky ? "white" : "white"
-                } px-4 py-1 rounded-lg `}
+                }  px-4 py-1  rounded-lg `}
               >
                 Log in
               </button>
@@ -111,28 +120,25 @@ const Navbar = () => {
             <div className="lg:hidden fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-4">
               <div className="flex flex-col space-y-6">
                 <Link
-                  to="/home"
+                  to="/"
                   onClick={closeDropdown}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   Home
                 </Link>
                 <Link
-                  to="/about"
-                  onClick={closeDropdown}
+                  onClick={scrollToAboutUs}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   About
                 </Link>
                 <Link
-                  to="/benefits"
-                  onClick={closeDropdown}
+                  onClick={scrollToBenefits}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   Benefits
                 </Link>
                 <Link
-                  to="/contact"
                   onClick={closeDropdown}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >

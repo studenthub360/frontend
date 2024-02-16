@@ -16,14 +16,14 @@ const Navbar = () => {
           Welcome Williams!
         </Link>
         <div className="flex items-center space-x-4 sm:space-x-8 md:space-x-12 lg:space-x-16">
-          <div className="border flex p-2 lg:p-3 rounded-full">
+          {/* <div className="border flex p-2 lg:p-3 rounded-full">
             <img src={search} className="h-4 lg:h-5" alt="search" />
             <input
               type="text"
               placeholder="Search..."
               className={`p-3 h-2  sm:w-40 md:w-52 lg:w-60 text-black focus:outline-none focus:border-green-500 `}
             />
-          </div>
+          </div> */}
         </div>
         <div className="space-x-4 flex text-center justify-center items-center text-black">
           <div className="w-5 lg:w-8">

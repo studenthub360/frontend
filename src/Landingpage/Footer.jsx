@@ -1,13 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="bg-white text-black">
       <div className="container mx-auto flex flex-col md:flex-row px-6 py-12 md:py-24">
         <div className="md:w-1/3 mb-6 md:mb-0 md:mr-8">
-          <h1 className="text-2xl font-semibold text-[#3D50FF] mb-4">
-            Studenthub360
-          </h1>
+          <Link className="text-2xl text-[#3B4FFE] flex pb-5 font-semibold">
+            <h1 className="font-serif">Studenthub</h1>{" "}
+            <h1 className="text-[#3B4FFE] font-magiona-display">360</h1>
+          </Link>
           <p className="text-sm">
             Your perfect student companion guide
             <br />

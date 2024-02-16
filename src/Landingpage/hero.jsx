@@ -1,5 +1,6 @@
 import React from "react";
 import group8 from "./images/group8.png";
+import { Link } from "react-router-dom";
 
 const hero = () => {
   return (
@@ -14,9 +15,11 @@ const hero = () => {
             Your personal assistant for easy management of your time, finances,
             academics, and social network with no stress
           </p>
-          <button className="bg-[#3A4FFE] font-bold text-white px-6 py-3 rounded-lg">
-            Get Started
-          </button>
+          <Link to="signup">
+            <button className="bg-[#3A4FFE] font-bold text-white px-6 py-3 rounded-lg">
+              Get Started
+            </button>
+          </Link>
         </div>
         <img
           src={group8}

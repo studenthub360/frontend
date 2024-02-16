@@ -34,7 +34,7 @@ const Tasks = () => {
     : tasks;
 
   return (
-    <div className="flex flex-col lg:flex-row w-full ">
+    <div className="flex flex-col lg:flex-row w-full  ">
       {/* Form to add new tasks */}
       <div className="lg:w-1/2 w-full p-5">
         <h2 className="text-2xl font-bold mb-4">Tasks</h2>

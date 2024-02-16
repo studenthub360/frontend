@@ -7,22 +7,19 @@ import "react-calendar/dist/Calendar.css";
 const Scheduling = () => {
   const [events, setEvents] = useState([]);
   const [eventName, setEventName] = useState("");
-  const [eventDate, setEventDate] = useState(new Date());
-  const [eventTime, setEventTime] = useState("");
+  const [eventDateTime, setEventDateTime] = useState("");
   const [eventDescription, setEventDescription] = useState("");
 
   const addEvent = () => {
     const newEvent = {
       name: eventName,
-      date: eventDate,
-      time: eventTime,
+      dateTime: eventDateTime,
       description: eventDescription,
     };
     setEvents([...events, newEvent]);
     // Reset form fields
     setEventName("");
-    setEventDate(new Date());
-    setEventTime("");
+    setEventDateTime("");
     setEventDescription("");
   };
 
@@ -32,14 +29,27 @@ const Scheduling = () => {
     setEvents(updatedEvents);
   };
 
+  const formatDateTime = (dateTimeString) => {
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return new Date(dateTimeString).toLocaleString(undefined, options);
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row space-x-1 lg:space-x-8 ">
-      <div className=" w-auto p-1">
+    <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-8">
+      <div className="w-full lg:w-1/2 p-4">
         <h2 className="text-2xl font-bold mb-4">Scheduling</h2>
 
         {/* Form to add new events */}
-        <form className="lg:flex lg:flex-wrap">
-          <div className="mb-4 w-full lg:w-1/2">
+        <form className="lg:flex flex-wrap">
+          <div className="mb-4 w-full pr-2 lg:w-1/2">
             <label className="font-bold" htmlFor="eventName">
               Event Name:
             </label>
@@ -51,33 +61,17 @@ const Scheduling = () => {
               className="p-1 w-full border border-black rounded-lg"
             />
           </div>
-          <div className="flex gap-10">
-            <div className="mb-4 w-full lg:w-1/2">
-              <label className="font-bold block" htmlFor="eventDate">
-                Set Date:
-              </label>
-              <DatePicker
-                selected={eventDate}
-                onChange={(date) => setEventDate(date)}
-                dateFormat="MMMM d, yyyy"
-                className="p-1 border-black rounded-lg w-full border"
-              />
-            </div>
-
-            <div className="mb-4 w-full lg:flex">
-              <div className="block lg:w-1/2 pr-2">
-                <label className="font-bold " htmlFor="eventTime">
-                  Set Time:
-                </label>
-                <input
-                  type="time"
-                  id="eventTime"
-                  value={eventTime}
-                  onChange={(e) => setEventTime(e.target.value)}
-                  className="p-1 border-black rounded-lg w-full border"
-                />
-              </div>
-            </div>
+          <div className="mb-4 w-full lg:w-1/2">
+            <label className="font-bold" htmlFor="eventDateTime">
+              Date and Time:
+            </label>
+            <input
+              type="datetime-local"
+              id="eventDateTime"
+              value={eventDateTime}
+              onChange={(e) => setEventDateTime(e.target.value)}
+              className="p-1 w-full border border-black rounded-lg"
+            />
           </div>
           <div className="mb-4 w-full">
             <label className="font-bold" htmlFor="eventDescription">
@@ -99,6 +93,7 @@ const Scheduling = () => {
             ADD
           </button>
         </form>
+
         <ul className="w-full mt-4">
           {events.map((event, index) => (
             <li
@@ -107,7 +102,7 @@ const Scheduling = () => {
             >
               <div className="mb-2 lg:mb-0">
                 <span className="font-semibold">{event.name}</span> -{" "}
-                {event.date.toDateString()} {event.time}
+                {formatDateTime(event.dateTime)}
                 <p>{event.description}</p>
               </div>
               <button
