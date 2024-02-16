@@ -9,11 +9,16 @@ import Tasks from "./TimeManagement/Tasks";
 import Tasksdah from "./TimeManagement/taskdash";
 import FinanceDashboard from "./FinanceManagement/LandingPage";
 import ExpenseTracker from "./FinanceManagement/ExpenseTracker";
+import EventDetails from "./TimeManagement/eventDetails"
+import { Toaster } from "react-hot-toast";
+import Home from "./pages/home/home";
 
 function App() {
   return (
+    <div>
     <Routes>
       <Route path="/" element={< Main/>} />
+      <Route path="/home" element={< Home/>} />
       <Route path="/login" element={< Login/>} />
       <Route path="/signup" element={< Signup/>} />
       <Route path="/dashboard" element={< Dashboard/>} />
@@ -23,7 +28,10 @@ function App() {
       <Route path="/tasksdah" element= {<Tasksdah/>} />
       <Route path="/finance" element={< FinanceDashboard/>} />
       <Route path="/expense-tracker" element={< ExpenseTracker/>} />
+      <Route path="/event-details" element={<EventDetails/>} />
     </Routes>
+    <Toaster />
+    </div>
   );
 }
 
