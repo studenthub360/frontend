@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios
+import axios from "axios";
 import loginPic from "./images/image.png";
 import Swal from "sweetalert2";
 
+const loaderStyles = {
+  width: "75px",
+  aspectRatio: "1",
+  display: "grid",
+};
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const loginApiLink = 'https://student360-api.onrender.com/api/auth';
+  const loginApiLink = "https://student360-api.onrender.com/api/auth";
+
+  // useEffect(() => {
+  //   // Check if the user is authenticated (you may need to adjust this based on your authentication logic)
+  //   const isAuthenticated = sessionStorage.getItem("accessToken");
+
+  //   // If authenticated, redirect to another page (e.g., dashboard)
+  //   if (isAuthenticated) {
+  //     navigate("/dashboard");
+  //   }
+  // }, [navigate]);
+  
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
+
       const response = await fetch(loginApiLink, {
         method: "POST",
         headers: {
@@ -22,20 +41,15 @@ const Login = () => {
           password: password,
         }),
       });
-      
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error);
       }
-      console.log(response.data);
-      
 
       const responseData = await response.json();
-      console.log("Login successful", responseData);
       const token = responseData.token;
 
-      // Store the token in localStorage
       sessionStorage.setItem("accessToken", token);
 
       const Toast = Swal.mixin({
@@ -73,19 +87,18 @@ const Login = () => {
         icon: "error",
         title: `${error.message}`,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
-
   return (
-    <div className="flex flex-col lg:flex-row  max-h-screen items-center overflow-hidden  bg-white">
-      {/* Image on the left (hidden in mobile view) */}
+    <div className="flex flex-col lg:flex-row max-h-screen items-center overflow-hidden bg-white">
       <img
         src={loginPic}
         alt="Login Pic"
-        className=" w-full lg:w-1/2 lg:h-screen  lg:block hidden object-cover"
+        className="w-full lg:w-1/2 lg:h-screen lg:block hidden object-cover"
       />
-      {/* Login form on the right */}
       <div className="w-full min-h-screen items-center">
         <div className="flex text-right justify-end">
           <Link
@@ -96,7 +109,7 @@ const Login = () => {
             <h1 className="text-[#3B4FFE] font-magiona-display">360</h1>
           </Link>
         </div>
-        <div className="min-w-screen lg:w-full min-h-screen  items-center p-20 lg:p-52 ">
+        <div className="min-w-screen lg:w-full min-h-screen items-center p-20 lg:p-52">
           <h2 className="text-2xl text-[#3D50FF] font-semibold mb-4 text-left lg:text-left">
             Login
           </h2>
@@ -136,6 +149,12 @@ const Login = () => {
               </button>
             </Link>
           </form>
+          {isLoading && (
+            <div className="loader" style={loaderStyles}>
+              <div className="loader:before"></div>
+              <div className="loader:after"></div>
+            </div>
+          )}
           <p className="mt-4 text-sm text-center lg:text-center">
             Don't have an account?{" "}
             <Link to="/signup" className="text-[#3A4FFE]">

@@ -1,128 +1,130 @@
-import React, { useState, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import "swiper/css/effect-coverflow";
-import "swiper/css/autoplay";
+import React, { useState, useEffect } from "react";
+import Carousel from "react-elastic-carousel";
 
 const Events = () => {
-  const [events, setEvents] = useState([]);
   const [eventName, setEventName] = useState("");
   const [eventLocation, setEventLocation] = useState("");
   const [eventDateTime, setEventDateTime] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventImage, setEventImage] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const swiperRef = useRef(null);
-
-  const addEvent = () => {
-    const newEvent = {
-      id: Date.now(),
-      name: eventName,
-      location: eventLocation,
-      dateTime: eventDateTime,
-      description: eventDescription,
-      image: eventImage,
-    };
-
-    setEvents([...events, newEvent]);
-    // Reset form fields
-    setEventName("");
-    setEventLocation("");
-    setEventDateTime("");
-    setEventDescription("");
-    setEventImage(null);
-
-    // Update Swiper after adding a new event
-    swiperRef.current.update();
-  };
-
-  const formatDateTime = (dateTimeString) => {
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
-    return new Date(dateTimeString).toLocaleString(undefined, options);
-  };
+  const [addedEvents, setAddedEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setEventImage(file);
   };
 
-  const showEventDetails = (id) => {
-    const selected = events.find((event) => event.id === id);
-    setSelectedEvent(selected);
-  };
+  const addEvent = async () => {
+    const token = sessionStorage.getItem("accessToken");
+    try {
+      // const token = sessionStorage.getItem("accessToken");
+      setIsLoading(true);
+      const [date, time] = eventDateTime.split("T");
 
-  const prevSlide = () => {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev();
+      // Create a FormData object to send the image file
+      const newEvent = {
+        eventName: eventName,
+        time: time,
+        date: date,
+        description: eventDescription,
+        location: eventLocation,
+        image: eventImage,
+      };
+
+      console.log(newEvent);
+      // Make the API call
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/event",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(newEvent),
+        }
+      );
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Failed to add event: ${errorMessage}`);
+      }
+
+      // Reset form fields and fetch updated events
+      setEventName("");
+      setEventLocation("");
+      setEventDateTime("");
+      setEventDescription("");
+      setEventImage(null);
+      fetchEvents();
+    } catch (error) {
+      console.error(error.message);
+      alert("Failed to add event. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const nextSlide = () => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
+  const fetchEvents = async () => {
+    const token = sessionStorage.getItem("accessToken");
+    try {
+      setIsLoading(true);
+
+      // Fetch events from the API
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/event/",
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch events");
+      }
+
+      const eventData = await response.json();
+      setAddedEvents(eventData);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      alert("Failed to fetch events. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const dummyEvents = [
-    {
-      id: 1,
-      name: "Event 1",
-      location: "Location 1",
-      dateTime: "2024-02-14T12:00",
-      description: "Description 1",
-      image: null,
-    },
-    // {
-    //   id: 2,
-    //   name: "Event 2",
-    //   location: "Location 2",
-    //   dateTime: "2024-02-15T14:30",
-    //   description: "Description 2",
-    //   image: null,
-    // },
-    // {
-    //   id: 3,
-    //   name: "Event 3",
-    //   location: "Location 3",
-    //   dateTime: "2024-02-16T18:45",
-    //   description: "Description 3",
-    //   image: null,
-    // },
-    // {
-    //   id: 4,
-    //   name: "Event 4",
-    //   location: "Location 4",
-    //   dateTime: "2024-02-17T09:15",
-    //   description: "Description 4",
-    //   image: null,
-    // },
-  ];
+  const formatDateTime = (date, time) => {
+    try {
+      const formattedDate = new Date(date).toLocaleDateString();
+      const formattedTime = new Date(`1970-01-01T${time}Z`).toLocaleTimeString(
+        [],
+        { hour: "2-digit", minute: "2-digit", hour12: true, second: "2-digit" }
+      );
 
-  // Initialize with dummy events
-  useState(() => {
-    setEvents(dummyEvents);
+      const formattedDateTime = `${formattedDate} ${formattedTime}`;
+      return formattedDateTime;
+    } catch (error) {
+      console.error("Error formatting date and time:", error);
+      return "Invalid Date";
+    }
+  };
+
+  // Initial fetch of events on component mount
+  useEffect(() => {
+    fetchEvents();
   }, []);
 
   return (
-    <div className="block lg:flex-row space-x-0 lg:space-x-8">
-      <div className="w-full lg:w-1/2 p-4">
-        <h2 className="text-2xl font-bold mb-4">Events</h2>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-8 ">Events</h1>
 
-        {/* Form to add new events */}
-        <form className="lg:flex flex-grow lg:flex-wrap">
-          <div className="mb-4 pr-2 w-full lg:w-1/2">
-            <label className="font-bold" htmlFor="eventName">
+      {/* Form to add an event */}
+      <form className="mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="eventName" className="block font-semibold mb-1">
               Event Name:
             </label>
             <input
@@ -130,11 +132,11 @@ const Events = () => {
               id="eventName"
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
-              className="p-1 w-full border border-black rounded-lg"
+              className="border border-gray-300 rounded-lg p-2 w-full"
             />
           </div>
-          <div className="mb-4 w-full lg:w-1/2">
-            <label className="font-bold" htmlFor="eventLocation">
+          <div>
+            <label htmlFor="eventLocation" className="block font-semibold mb-1">
               Location:
             </label>
             <input
@@ -142,11 +144,11 @@ const Events = () => {
               id="eventLocation"
               value={eventLocation}
               onChange={(e) => setEventLocation(e.target.value)}
-              className="p-1 w-full border border-black rounded-lg"
+              className="border border-gray-300 rounded-lg p-2 w-full"
             />
           </div>
-          <div className="mb-4 w-full lg:w-1/2">
-            <label className="font-bold" htmlFor="eventDateTime">
+          <div>
+            <label htmlFor="eventDateTime" className="block font-semibold mb-1">
               Date and Time:
             </label>
             <input
@@ -154,106 +156,89 @@ const Events = () => {
               id="eventDateTime"
               value={eventDateTime}
               onChange={(e) => setEventDateTime(e.target.value)}
-              className="p-1 w-full border border-black rounded-lg"
+              className="border border-gray-300 rounded-lg p-2 w-full"
             />
           </div>
-          <div className="mb-4 w-full">
-            <label className="font-bold" htmlFor="eventDescription">
+          <div className="col-span-2">
+            <label
+              htmlFor="eventDescription"
+              className="block font-semibold mb-1"
+            >
               Event Description:
             </label>
             <textarea
               id="eventDescription"
               value={eventDescription}
               onChange={(e) => setEventDescription(e.target.value)}
-              className="p-2 border-black rounded-lg w-full border"
+              className="border border-gray-300 rounded-lg p-2 w-full"
             />
           </div>
-          <div className="mb-4 w-full">
-            <label className="font-bold" htmlFor="eventImage">
+          <div className="col-span-2">
+            <label htmlFor="eventImage" className="block font-semibold mb-1">
               Event Image:
             </label>
             <input
               type="file"
               id="eventImage"
               onChange={handleImageChange}
-              className="p-1 w-full border border-black rounded-lg"
+              className="border border-gray-300 rounded-lg p-2 w-full"
             />
           </div>
-
-          <button
-            type="button"
-            onClick={addEvent}
-            className="bg-[#3B50FE] rounded-lg text-white py-2 px-6"
-          >
-            ADD
-          </button>
-        </form>
-      </div>
-
-      {/* <div className="w-full lg:w-min p-4">
-        <h2 className="text-2xl font-bold mb-4">Recent Events</h2>
-       
-        <Swiper
-          ref={swiperRef}
-          slidesPerView={2}
-          spaceBetween={30}
-          navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
+        </div>
+        <button
+          type="button"
+          onClick={addEvent}
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-36"
         >
-          {events.map((event) => (
-            <SwiperSlide key={event.id}>
-              <div className="w-full p-2">
-                <div className="border p-4 rounded-md">
-                  {event.image && (
-                    <img
-                      src={
-                        typeof event.image === "string"
-                          ? event.image
-                          : URL.createObjectURL(event.image)
-                      }
-                      alt={event.name}
-                      className="mt-2 w-full h-32 object-cover rounded-md"
-                    />
-                  )}
-                  <h3 className="font-semibold text-center">{event.name}</h3>
-                  {selectedEvent && (
-                    <div className="w-full p-4">
-                      <div className="">
-                        <p>{selectedEvent.location}</p>
-                        <p>{formatDateTime(selectedEvent.dateTime)}</p>
-                        <p>{selectedEvent.description}</p>
-                      </div>
-                    </div>
-                  )}
-                  <button
-                    onClick={() => showEventDetails(event.id)}
-                    className="text-[#3B50FE] mt-2"
-                  >
-                    Show Details
-                  </button>
+          Add Event
+        </button>
+      </form>
+
+      {/* Carousel to display added events */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold mb-4 text-center">Added Events</h2>
+        <Carousel
+          itemsToShow={3}
+          pagination={false}
+          breakPoints={[
+            { width: 1, itemsToShow: 1 },
+            { width: 550, itemsToShow: 2 },
+            { width: 768, itemsToShow: 3 },
+            { width: 1200, itemsToShow: 4 },
+          ]}
+        >
+          {[...addedEvents].map((event) => (
+            <div key={event.id} className="px-2">
+              <div className="border rounded-lg overflow-hidden">
+                {event.image && (
+                  <img
+                    src={event.image}
+                    alt={event.name}
+                    className="w-fit h-fit object-cover"
+                  />
+                )}
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-2">
+                    {event.eventName}
+                  </h3>
+                  <p className="mb-2">
+                    <span className="font-semibold">Location:</span>{" "}
+                    {event.location}
+                  </p>
+                  <p className="mb-2">
+                    <span className="font-semibold">Date and Time:</span>{" "}
+                    {formatDateTime(event.date, event.time)}
+                  </p>
+                  <p className="mb-2">
+                    <span className="font-semibold">Description:</span>{" "}
+                    {event.description}
+                  </p>
                 </div>
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
-
-     
-        <div className="flex justify-between mt-4">
-          <button
-            onClick={prevSlide}
-            className="bg-[#3B50FE] rounded-lg text-white py-2 px-6"
-          >
-            Prev
-          </button>
-          <button
-            onClick={nextSlide}
-            className="bg-[#3B50FE] rounded-lg text-white py-2 px-6"
-          >
-            Next
-          </button>
-        </div>
-      </div> */}
+        </Carousel>
+      </div>
     </div>
   );
 };

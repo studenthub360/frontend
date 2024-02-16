@@ -25,13 +25,13 @@ const Sidebar = () => {
       <ul className={`hidden lg:block text-black p-5 lg:text-white font-bold`}>
         <div>
           <li className="p-4 ">
-            <Link to="/dashboard/time-management" className="flex gap-2">
+            <Link to="/stress" className="flex gap-2">
               <img src={stress} className="w-8 h-8 " />
               Stress Management
             </Link>
           </li>
           <li className="p-4">
-            <Link to="/tasksdah" className="flex gap-2">
+            <Link to="/coping" className="flex gap-2">
               <img src={coping} className="w-8 h-8 " />
               Coping Strategies
             </Link>
@@ -70,14 +70,14 @@ const Sidebar = () => {
         <div className="lg:hidden fixed top-0 left-0 h-full w-4/5 bg-white shadow-md p-5">
           <div className="flex flex-col space-y-2 text-black lg:text-white font-bold overflow-auto">
             <Link
-              to="/dashboard/time-management"
+              to="/stress"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >
               Stress Management
             </Link>
             <Link
-              to="/tasksdah"
+              to="/coping"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >

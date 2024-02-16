@@ -201,34 +201,24 @@ const SignUp = () => {
                 Department:
               </label>
               {/* Replace the options with your desired university options */}
-              <select
+              <input
                 id="Department"
+                text="text"
                 className="mt-1 p-2 w-full border border-black rounded-md"
                 onChange={(e) => setDepartment(e.target.value)}
-              >
-                <option value="">Select Department</option>
-                <option value="department1">se</option>
-                <option value="department2">cs</option>
-                <option value="department3">it</option>
-                <option value="department4">cis</option>
-                <option value="department5">mb</option>
-                <option value="department6">bio</option>
-              </select>
+              />
             </div>
             <div className="mb-4">
               <label htmlFor="university" className="block text-sm font-medium">
                 University:
               </label>
               {/* Replace the options with your desired university options */}
-              <select
+              <input
                 id="university"
+                type="text"
                 className="mt-1 p-2 w-full border border-black rounded-md"
                 onChange={(e) => setUniversity(e.target.value)}
-              >
-                <option value="">Select University</option>
-                <option value="university1">University 1</option>
-                <option value="university2">University 2</option>
-              </select>
+              />
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="block text-sm font-medium">

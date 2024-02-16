@@ -14,6 +14,10 @@ import Groups from "./SocialNetworking/Dashboard";
 import Nevents from "./SocialNetworking/eventdashboard";
 import Stress from "./wellbeing/Dashboard";
 import { inject } from '@vercel/analytics';
+import Coping from "./wellbeing/copingdash";
+import Managestress from "./wellbeing/stressdash";
+import Learn from "./AcademicSupport/learndash";
+import Study from "./AcademicSupport/studydash";
 
 function App() {
   return (
@@ -32,7 +36,10 @@ function App() {
       <Route path="/groups" element={<Groups />} />
       <Route path="/groups/events" element={<Nevents />} />
       <Route path="/wellbeing" element={<Stress />} />
-      
+      <Route path="/coping" element={<Coping />} />
+      <Route path="/stress" element={<Managestress />} />
+      <Route path="/learn" element={<Learn />} />
+      <Route path="/study" element={<Study />} />
     </Routes>
     
   );

@@ -15,6 +15,7 @@ const Main = () => {
       offset: 200,
       easing: "ease-in-out",
     });
+    sessionStorage.clear();
   }, []);
 
   return (

@@ -1,15 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import spotify from "./images/spotify.png";
 import apple from "./images/apple.png";
 import { Link } from "react-router-dom";
 
 const SharedPlaylist = () => {
+  const [playlist, setPlaylist] = useState([]);
   const [playlistName, setPlaylistName] = useState("");
   const [selectedApp, setSelectedApp] = useState("");
   const [playlistLink, setPlaylistLink] = useState("");
   const [description, setDescription] = useState("");
   const [imageSrc, setImageSrc] = useState("");
+  const [userName, setUserName] = useState(); // Default value, replace with actual name
+  const [isLoading, setIsLoading] = useState(true);
+  const [charLimit, setCharLimit] = useState(100);
+  const [userResponse, setUserResponse] = useState({});
 
+  useEffect(() => {
+    // Fetch tasks from the API when the component mounts
+    fetchPlaylist();
+    fetchUser();
+  }, []);
+
+  const handleDescriptionChange = (e) => {
+    const inputText = e.target.value;
+    if (inputText.length <= charLimit) {
+      setDescription(inputText);
+    }
+  };
+
+  const fetchUser = () => {
+    const token = sessionStorage.getItem("accessToken");
+    fetch("https://student360-api.onrender.com/api/user", {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const result = data.result;
+        const fullName = result.full_name;
+        const firstName = fullName.split(" ")[0]; // Extract the first name
+        setUserName(firstName);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        setIsLoading(false);
+      });
+  };
+
+  const fetchPlaylist = () => {
+    const token = sessionStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+
+    fetch("https://student360-api.onrender.com/api/playlist", {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch playlist");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        
+        setPlaylist(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching playlist:", error);
+      });
+  };
   const musicApps = [
     { id: 1, name: "Spotify", image: spotify },
     { id: 2, name: "Apple Music", image: apple },
@@ -22,7 +88,7 @@ const SharedPlaylist = () => {
     setSelectedApp(selectedApp);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate if all required fields are filled
@@ -31,52 +97,52 @@ const SharedPlaylist = () => {
       return;
     }
 
-    // Create a new playlist object
-    const newPlaylist = {
-      id: playlists.length + 1,
-      name: playlistName,
-      description: description, // Add a description logic as needed
-      image: imageSrc,
-    };
+    try {
+      // Create a new playlist object
+      const newPlaylist = {
+        playlist: playlistName,
+        player: selectedApp,
+        link: playlistLink,
+        // description: description,
+      };
 
-    // Update the playlists state with the new playlist
-    setPlaylists([...playlists, newPlaylist]);
+      const token = sessionStorage.getItem("accessToken");
 
-    // Clear the form fields
-    setPlaylistName("");
-    setSelectedApp("");
-    setPlaylistLink("");
-    setImageSrc("");
-    setDescription("");
+      // Update the playlists state with the new playlist
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/playlist",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(newPlaylist),
+        }
+      );
+      console.log(newPlaylist);
+      if (!response.ok) {
+        const errorMessage = await response.text(); // Get the specific error message from the server
+        throw new Error(`Failed to add playlist: ${errorMessage}`);
+      }
+
+      // Fetch tasks again after successfully adding a new playlist
+      fetchPlaylist();
+      setPlaylistName("");
+      setSelectedApp("");
+      setPlaylistLink("");
+      setImageSrc("");
+      setDescription("");
+    } catch (error) {
+      console.error(error.message);
+      // Handle the error appropriately (e.g., show an error message)
+    }
   };
-
-  // Mock data for playlists
-  const [playlists, setPlaylists] = useState([
-    {
-      id: 1,
-      name: "HEART-BREAK",
-      description:
-        "Taylor swift, Lewis Capaldi, Justin Bieber, Ariana Grande +15 more",
-      image: spotify,
-      link: "https://open.spotify.com/playlist/37i9dQZF1DXbrUpGvoi3TS",
-    },
-    {
-      id: 2,
-      name: "AFRO NIGGAS",
-      description:
-        "Davido, Wizkid, Burna Boy, Ayra Star, Rema, Fireboy  +10 more",
-      image: apple,
-      link: "https://music.apple.com/us/playlist/afrobeats-hits/pl.dc349df19c6f410d874c197db63ecfed",
-    },
-  ]);
 
   return (
     <div className="container mx-auto mt-8">
       <div>
-        <form
-          onSubmit={handleSubmit}
-          className="w-1/2  pb-5 "
-        >
+        <form onSubmit={handleSubmit} className="w-1/2  pb-5 ">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Name of Playlist
             <input
@@ -114,7 +180,7 @@ const SharedPlaylist = () => {
             Description:
             <textarea
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={handleDescriptionChange}
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             />
           </label>
@@ -138,18 +204,26 @@ const SharedPlaylist = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-4 gap-8">
-        {playlists.map((playlist) => (
+        {playlist.map((playlist) => (
           <div
             key={playlist.id}
             className="bg-white pb-6 text-center rounded-xl shadow-md"
           >
-            <img
-              src={playlist.image}
-              alt={playlist.name}
-              className=" justify-between items-center h-fit py-2 mx-auto object-cover"
-            />
+            {musicApps.map((app) => {
+              if (app.name === playlist.musicPlayer) {
+                return (
+                  <img
+                    key={app.id}
+                    src={app.image}
+                    alt={playlist.playlistName}
+                    className="h-fit py-2 mx-auto object-cover"
+                  />
+                );
+              }
+              return null;
+            })}
             <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
-              {playlist.name}
+              {playlist.playlistName}
             </h3>
             <p className="text-gray-600">{playlist.description}</p>
             <Link

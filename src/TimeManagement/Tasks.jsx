@@ -82,6 +82,8 @@ const Tasks = () => {
       return task;
     });
   
+    const updatedTask = updatedTasks.find((task) => task.id === taskId);
+  
     setTasks(updatedTasks);
   
     const token = sessionStorage.getItem('accessToken');
@@ -91,7 +93,7 @@ const Tasks = () => {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
       },
-      body: JSON.stringify({ updateTask: updatedTasks.find((task) => task.id === taskId).updateTask }),
+      body: JSON.stringify({ updateTask: updatedTask.updateTask }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -107,6 +109,7 @@ const Tasks = () => {
         console.error('Error updating task status:', error);
       });
   };
+  
   
 
   
@@ -185,12 +188,12 @@ const Tasks = () => {
                 <button
                   onClick={() => toggleTaskStatus(task.id)}
                   className={`text-${
-                    task.completed
+                    task.updateTask === '1'
                       ? "white bg-blue-600 p-1 rounded-lg"
                       : "white bg-red-600 p-1 rounded-lg"
                   } mr-2`}
                 >
-                  {task.completed ? 'Completed' : 'Pending'}
+                 {task.updateTask === '1' ? 'Completed' : 'Pending'}
                 </button>
                 <button
                   onClick={() => removeTask(index)}
