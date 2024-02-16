@@ -18,6 +18,7 @@ import Coping from "./wellbeing/copingdash";
 import Managestress from "./wellbeing/stressdash";
 import Learn from "./AcademicSupport/learndash";
 import Study from "./AcademicSupport/studydash";
+import { injectSpeedInsights } from '@vercel/speed-insights';
 
 function App() {
   return (
@@ -45,4 +46,5 @@ function App() {
   );
 }
 inject();
+injectSpeedInsights();
 export default App;
