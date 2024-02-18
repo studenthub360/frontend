@@ -18,49 +18,54 @@ const NetworkingGroups = () => {
       id: 1,
       name: "GENZ-TECHIES",
       description:
-        "Young minded tech generation connect with them and get in...",
+        "Connect with young-minded tech enthusiasts and explore the latest trends in the tech industry.",
       image: genz,
     },
     {
       id: 2,
       name: "Google Developer Student Club (GDSC)",
-      description: "Join if you're passionate about data science.",
+      description: "Join if you're passionate about tech.",
       image: gdsc,
     },
     {
       id: 3,
       name: "Kuda Tech Club",
-      description: "Join if you're passionate about data science.",
+      description:
+        "Kuda Tech Club invites tech enthusiasts to a symposium on tech innovation.",
       image: kuda,
     },
     {
       id: 4,
       name: "Trakka Tech Club",
-      description: "Join if you're passionate about data science.",
+      description:
+        "Embark on a coding adventure at the Hackathon 2024 hosted by Trakka Tech Club.",
       image: trakka,
     },
     {
       id: 5,
       name: "Interswitch Tech Club",
-      description: "Join if you're passionate about data science.",
+      description:
+        " Explore the latest trends in financial technology and network with professionals in the fintech industry.",
       image: interswitch,
     },
     {
       id: 6,
       name: "Learnly Tech Club",
-      description: "Join if you're passionate about data science.",
+      description:
+        "Learnly Tech Club presents a Coding Bootcamp where you'll enhance your programming abilities",
       image: learnly,
     },
     {
       id: 7,
       name: "Fintech Club",
-      description: "Join if you're passionate about data science.",
+      description:
+        "Explore the world of blockchain at the Fintech Club's Blockchain Workshop.",
       image: fintech,
     },
     {
       id: 8,
       name: "Techin (Tech Innovators Network)",
-      description: "Join if you're passionate about data science.",
+      description: "Connect with visionaries shaping the future of technology.",
       image: techin,
     },
     // Add more networking groups as needed
@@ -82,7 +87,7 @@ const NetworkingGroups = () => {
             <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
               {group.name}
             </h3>
-            <p className="text-gray-600">{group.description}</p>
+            <p className="text-gray-600 p-2">{group.description}</p>
             <button
               to={`/networking-groups/${group.id}`}
               className="mt-4 text-[#3A4FFE]  border border-[#3A4FFE] rounded-lg inline-block"

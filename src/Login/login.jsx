@@ -10,7 +10,7 @@ const loaderStyles = {
   display: "grid",
 };
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +70,9 @@ const Login = () => {
       });
 
       navigate("/dashboard");
+      if (onLogin) {
+        onLogin();
+      }
     } catch (error) {
       const Toast = Swal.mixin({
         toast: true,

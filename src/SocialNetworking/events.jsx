@@ -99,8 +99,6 @@ const NetworkingGroups = () => {
     },
     // Add more networking groups as needed
   ];
-  
-  
 
   return (
     <div className="container ">
