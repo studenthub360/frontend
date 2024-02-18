@@ -122,7 +122,7 @@ const Events = () => {
       <h1 className="text-3xl font-bold mb-8 ">Events</h1>
 
       {/* Form to add an event */}
-      <form className="mb-8">
+      <form className="mb-8 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="eventName" className="block font-semibold mb-1">
@@ -196,7 +196,7 @@ const Events = () => {
       </form>
 
       {/* Carousel to display added events */}
-      <div className="mb-8">
+      <div className="mb-8 grid grid-cols-1 ">
         <h2 className="text-3xl font-bold mb-4 text-center">Added Events</h2>
         <Carousel
           showArrows={true}

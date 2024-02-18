@@ -33,12 +33,12 @@ const Sidebar = () => {
               Tasks
             </Link>
           </li>
-          <li className="p-4">
+          {/* <li className="p-4">
             <Link to="/dashboard/time-management/events" className="flex gap-2">
               <img src={event} className="w-6 " />
               Events
             </Link>
-          </li>
+          </li> */}
         </div>
       </ul>
       {/* Sidebar toggle button */}
@@ -80,13 +80,13 @@ const Sidebar = () => {
             >
               Tasks
             </Link>
-            <Link
+            {/* <Link
               to="/dashboard/time-management/events"
               className="block p-4 hover:bg-gray-100 rounded"
               onClick={closeSidebar}
             >
               Events
-            </Link>
+            </Link> */}
             <Link to="/" className="flex gap-2">
               <img src={logoutblack} className=" w-5 ml-4   " />
               Logout

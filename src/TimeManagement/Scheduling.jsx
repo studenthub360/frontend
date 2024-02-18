@@ -134,8 +134,8 @@ const Scheduling = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-8">
-      <div className="w-full lg:w-1/2 p-4">
+    <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-8 ">
+      <div className="w-min lg:w-1/2 p-4">
         <h2 className="text-2xl font-bold mb-4">Scheduling</h2>
 
         {/* Form to add new events */}
@@ -207,11 +207,11 @@ const Scheduling = () => {
         </ul>
       </div>
 
-      <div className="w-full lg:w-1/2 p-4">
+      <div className=" w-2/3 lg:w-1/2 py-1">
         {/* Calendar display */}
         <h2 className="text-2xl font-bold mb-4">Calendar</h2>
         <Calendar
-          className="w-1/2 max-w-xs mx-auto rounded-lg p-2 border"
+          className="lg:w-1/2 w-1/4   rounded-lg p-1 border"
           tileClassName={({ date }) => {
             // Check if the date has events
             const hasEvents = eventDates.some(
@@ -226,7 +226,7 @@ const Scheduling = () => {
         />
 
         {/* Display events for the selected date */}
-        <div className="w-1/2 max-w-xs mx-auto my-auto rounded-lg p-2 ">
+        <div className="w-1/2   my-auto rounded-lg py-2 ">
           <h3 className="text-lg font-semibold mb-2">
             Events for {selectedDate.toDateString()}:
           </h3>

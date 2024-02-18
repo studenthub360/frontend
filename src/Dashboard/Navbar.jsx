@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import image from "./images/Ellipse 86.png";
 import vector from "./images/Vector.png";
 import search from "./images/search.png";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const [userName, setUserName] = useState(); // Default value, replace with actual name
@@ -66,15 +67,20 @@ const Navbar = () => {
           </div> */}
         </div>
         <div className="space-x-4 flex text-center justify-center items-center text-black">
-          <div className="w-5 lg:w-8">
+          {/* <div className="w-5 lg:w-8">
             <img src={vector} alt="notification" />
-          </div>
+          </div> */}
           <div className={` rounded-full justify-center items-center `}>
-            <img
-              src={image}
-              alt="profile"
-              className="rounded-full w-8 lg:h-9 lg:w-9"
-            />
+            <Link to="/profile">
+              <div
+                // icon={<FaUser />}
+                alt="profile"
+                className="rounded-full w-8  lg:w-10 h-8 lg:h-10 bg-[#3b4efeec] border border-black flex items-center justify-center"
+              >
+                <FaUser />
+              </div>
+              <h1 className=" font-magiona-display font-medium">Profile</h1>
+            </Link>
           </div>
         </div>
       </div>

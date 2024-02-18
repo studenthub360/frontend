@@ -9,10 +9,10 @@ const AboutUs = () => {
           <img
             src={macbook}
             alt="Macbook"
-            className="w-full max-w-md mx-auto lg:mx-0 mt-3"
+            className="w-full  max-w-md mx-auto lg:mx-0 mt-3"
           />
         </div>
-        <div className="order-1 lg:order-2 lg:ml-10">
+        <div className="order-1 lg:order-2 lg:ml-1">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-[#3D50FF]">
             About Us
           </h2>

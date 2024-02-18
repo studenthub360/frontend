@@ -9,7 +9,7 @@ import twf from "./images/twf.png";
 import journal from "./images/journal.png";
 import reorganise from "./images/reorganise.png";
 import vision from "./images/vision.png";
-import gratitude from "./images/gratitude.png"
+import gratitude from "./images/gratitude.png";
 
 const NetworkingGroups = () => {
   // Replace the following data with your actual networking groups data
@@ -26,7 +26,7 @@ const NetworkingGroups = () => {
       name: "THERAPY",
       description:
         "Don’t shy away from seeking professional help when necessary",
-      image:therapy,
+      image: therapy,
     },
     {
       id: 3,
@@ -66,7 +66,8 @@ const NetworkingGroups = () => {
     {
       id: 8,
       name: "GRATITUDE",
-      description: "The only way to not worry about what you don’t have is being grateful for that you do have",
+      description:
+        "The only way to not worry about what you don’t have is being grateful for that you do have",
       image: gratitude,
     },
 
@@ -79,7 +80,7 @@ const NetworkingGroups = () => {
         {networkingGroups.map((group) => (
           <div
             key={group.id}
-            className="bg-white pb-6  text-center rounded-xl shadow-md"
+            className="bg-white p-6  text-center rounded-xl shadow-md"
           >
             <img
               src={group.image}
@@ -89,7 +90,7 @@ const NetworkingGroups = () => {
             <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
               {group.name}
             </h3>
-            <p className="text-gray-600">{group.description}</p>
+            <p className="text-gray-600 ">{group.description}</p>
             <button
               to={`/networking-groups/${group.id}`}
               className="mt-4 text-[#3A4FFE]  border border-[#3A4FFE] rounded-lg inline-block"

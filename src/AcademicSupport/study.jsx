@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import zoom from "./images/zoom.png"; 
+import zoom from "./images/zoom.png";
 import googleMeet from "./images/googlemeet.png";
 
 const StudySession = () => {
@@ -27,42 +27,34 @@ const StudySession = () => {
     fetchStudySessions();
   }, []);
 
-  const fetchStudySessions = () => {
-    // Simulated data for initial rendering
-    const initialData = [
-      {
-        id: 1,
-        groupName: "Study Group 1",
-        focusOfStudy: "React Development",
-        studyMentor: "John Doe",
-        meetingPlatform: "Zoom",
-        meetingLink: "https://zoom.us/meeting-link-1",
-      },
-      // Add more initial data as needed
-    ];
+  const fetchStudySessions = async () => {
+    try {
+      setIsLoading(true);
+      const token = sessionStorage.getItem("accessToken");
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/tutoring",
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
 
-    setStudySessions(initialData);
-    setIsLoading(false);
-  };
+      if (!response.ok) {
+        throw new Error("Failed to fetch study sessions");
+      }
 
-  const handlePlatformChange = (selectedPlatform) => {
-    const selectedPlatformData = meetingPlatforms.find(
-      (platform) => platform.name === selectedPlatform
-    );
-  
-    setSelectedPlatformImage(selectedPlatformData ? selectedPlatformData.image : "");
-    setSelectedPlatform(selectedPlatform);
-  };
-  
-
-  const handleAddSession = () => {
-    if (sessionName) {
-      setSessions((prevSessions) => [...prevSessions, sessionName]);
-      setSessionName("");
+      const studySessionData = await response.json();
+      setStudySessions(studySessionData);
+    } catch (error) {
+      console.error("Error fetching study sessions:", error);
+      alert("Failed to fetch study sessions. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate if all required fields are filled
@@ -77,28 +69,82 @@ const StudySession = () => {
       return;
     }
 
-    // Simulated adding a new study session to the local state
-    const newStudySession = {
-      id: studySessions.length + 1,
-      groupName,
-      focusOfStudy,
-      studyMentor,
-      meetingPlatform: selectedPlatform,
-      meetingLink,
-      sessions,
-    };
+    try {
+      const token = sessionStorage.getItem("accessToken");
+      setIsLoading(true);
+      const newSession = {
+        studyGroup: groupName,
+        focus: focusOfStudy,
+        mentor: studyMentor,
+        application: selectedPlatform,
+        link: meetingLink,
+      };
+      console.log(newSession);
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/tutoring",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(newSession),
+        }
+      );
+      console.log(response);
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Failed to add study session: ${errorMessage}`);
+      }
 
-    setStudySessions((prevSessions) => [...prevSessions, newStudySession]);
-
-    // Clear the form fields
-    setGroupName("");
-    setFocusOfStudy("");
-    setStudyMentor("");
-    setSelectedPlatform("");
-    setMeetingLink("");
-    setSessions([]);
-    setSessionName("");
+      // Reset form fields and fetch updated study sessions
+      fetchStudySessions();
+      setGroupName("");
+      setFocusOfStudy("");
+      setStudyMentor("");
+      setSelectedPlatform("");
+      setMeetingLink("");
+    } catch (error) {
+      console.error(error.message);
+      alert("Failed to add study session. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  //   const handlePlatformChange = (selectedPlatform) => {
+  //     const selectedPlatformData = meetingPlatforms.find(
+  //       (platform) => platform.name === selectedPlatform
+  //     );
+
+  //     setSelectedPlatformImage(
+  //       selectedPlatformData ? selectedPlatformData.image : ""
+  //     );
+  //     setSelectedPlatform(selectedPlatform);
+  //   };
+
+  //   const musicApps = [
+  //     { id: 1, name: "Spotify", image: spotify },
+  //     { id: 2, name: "Apple Music", image: apple },
+  //     // Add more music apps as needed
+  //   ];
+
+  const handlePlatformChange = (selectedPlatform) => {
+    const selectedPlatformData = meetingPlatforms.find(
+      (platform) => platform.name === selectedPlatform
+    );
+    setSelectedPlatformImage(
+      selectedPlatformData ? selectedPlatformData.image : ""
+    );
+    setSelectedPlatform(selectedPlatform);
+  };
+
+  //   const handleAddSession = () => {
+  //     if (sessionName) {
+  //       setSessions((prevSessions) => [...prevSessions, sessionName]);
+  //       setSessionName("");
+  //     }
+  //   };
 
   return (
     <div className="container mx-auto mt-8">
@@ -115,7 +161,7 @@ const StudySession = () => {
           </label>
 
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Focus of Study
+            Description
             <input
               type="text"
               value={focusOfStudy}
@@ -125,7 +171,7 @@ const StudySession = () => {
           </label>
 
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Study Mentor
+            Date
             <input
               type="text"
               value={studyMentor}
@@ -183,15 +229,27 @@ const StudySession = () => {
             key={session.id}
             className="bg-white pb-6 text-center rounded-xl shadow-md"
           >
+            {" "}
+            {meetingPlatforms.map((platform) => {
+              if (platform.name === session.application) {
+                return (
+                  <img
+                    key={platform.id}
+                    src={platform.image}
+                    alt={platform.studyGroup}
+                    className="h-fit py-2 mx-auto object-cover"
+                  />
+                );
+              }
+              return null;
+            })}
             <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
-              {session.groupName}
+              {session.studyGroup}
             </h3>
-            <p className="text-gray-600">{session.focusOfStudy}</p>
-            <p className="text-gray-600">{session.studyMentor}</p>
-            <p className="text-gray-600">{session.meetingPlatform}</p>
-
+            <p className="text-gray-600">{session.focus}</p>
+            <p className="text-gray-600">{session.mentor}</p>
             <Link
-              to={session.meetingLink}
+              to={session.link}
               className="mt-4 text-[#3A4FFE] border border-[#3A4FFE] rounded-lg inline-block"
             >
               <h1 className="p-2 font-bold">Join Study Session</h1>

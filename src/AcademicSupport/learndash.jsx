@@ -18,14 +18,14 @@ const TimeManagement = () => {
             <h1 className="lg:text-3xl text-lg  font-bold text-[#3B50FE] mb-4">
             Learning resources
             </h1>
-            <button className="bg-[#3B50FE] text-white font-semibold lg:py-2 lg:px-4 px-1 py-1 text-center h-1/2 rounded-lg">
+            {/* <button className="bg-[#3B50FE] text-white font-semibold lg:py-2 lg:px-4 px-1 py-1 text-center h-1/2 rounded-lg">
               Forum
               <img
                 src={forum}
                 alt="forum"
                 className="w-4 h-4 inline-block ml-2"
               />
-            </button>
+            </button> */}
             {/* <Link
             to="/"
             className="text-2xl flex px-4 text-[#3D50FF] font-semibold mb-4 text-left lg:text-left"

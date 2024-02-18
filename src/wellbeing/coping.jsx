@@ -80,7 +80,7 @@ const NetworkingGroups = () => {
         {networkingGroups.map((group) => (
           <div
             key={group.id}
-            className="bg-white pb-6  text-center rounded-xl shadow-md"
+            className="bg-white p-6  text-center rounded-xl shadow-md"
           >
             <img
               src={group.image}

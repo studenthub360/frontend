@@ -85,7 +85,7 @@ const Links = () => {
             <div className="bg-white p-4 h-auto w-auto rounded-lg shadow-md hover:shadow-lg transform hover:scale-110 transition duration-300 cursor-pointer">
               <img src={chat} alt="user" width={40} className="mx-auto mb-2" />
               <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
-                Organization chat
+              Community Chat
               </h3>
               <p className="px-4 text-left py-5">
               It helps  streamline communication and coordination within academic teams and study groups by  creating dedicated channels or groups for specific courses and projects.

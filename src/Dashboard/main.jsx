@@ -39,7 +39,7 @@ const Main = () => {
         <Link to="/user-authentication" className="text-center">
           <div className="bg-[#3A4FFE] p-10 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
             <h3 className="text-xl font-semibold mb-2 text-white">
-              Organization chat
+             Community Chat
             </h3>
           </div>
         </Link>

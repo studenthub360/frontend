@@ -47,7 +47,7 @@ const LearningResources = () => {
     e.preventDefault();
 
     // Validate if all required fields are filled
-    if (!resourceName || !resourceLink || !resourceImage) {
+    if (!resourceName || !resourceLink) {
       alert("Please fill in all fields");
       return;
     }
@@ -57,9 +57,9 @@ const LearningResources = () => {
       const newResource = {
         name: resourceName,
         link: resourceLink,
-        image: resourceImage,
         description: description,
       };
+      console.log(newResource);
 
       const token = sessionStorage.getItem("accessToken");
 
@@ -85,7 +85,6 @@ const LearningResources = () => {
       fetchResources();
       setResourceName("");
       setResourceLink("");
-      setResourceImage("");
       setDescription("");
     } catch (error) {
       console.error(error.message);
@@ -126,15 +125,15 @@ const LearningResources = () => {
             />
           </label>
 
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Resource Image :
+          {/* <label className="block text-gray-700 text-sm font-bold mb-2"> */}
+            {/* Resource Image :
             <input
               type="file"
               value={resourceImage}
               onChange={(e) => setResourceImage(e.target.value)}
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             />
-          </label>
+          </label> */}
 
           <button
             type="submit"
@@ -151,11 +150,11 @@ const LearningResources = () => {
             key={resource.id}
             className="bg-white pb-6 text-center rounded-xl shadow-md"
           >
-            <img
+            {/* <img
               src={resource.image}
               alt={resource.name}
               className="h-fit py-2 mx-auto object-cover"
-            />
+            /> */}
             <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
               {resource.name}
             </h3>
