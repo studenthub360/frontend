@@ -6,12 +6,16 @@ const Tasks = () => {
   const [description, setTaskDescription] = useState("");
   const [filterCompleted, setFilterCompleted] = useState(false);
 
-  useEffect(() => {
+  useEffect(  () => {
     // Fetch tasks from the API when the component mounts
-    fetchTasks();
+  //  await fetchTasks();
+  fetchData()
+  async function fetchData() {
+    await fetchTasks();
+  }
   }, []);
 
-  const fetchTasks = () => {
+  const fetchTasks = async () => {
     const token = sessionStorage.getItem("accessToken"); // Assuming you store the token in localStorage
 
     fetch("https://student360-api.onrender.com/api/task", {
@@ -26,6 +30,7 @@ const Tasks = () => {
         return response.json();
       })
       .then((data) => {
+        console.log(data)
         setTasks(data);
       })
       .catch((error) => {
@@ -56,9 +61,9 @@ const Tasks = () => {
         }
         return response.json();
       })
-      .then(() => {
+      .then( async() => {
         // Fetch tasks again after successfully adding a new task
-        fetchTasks();
+       await fetchTasks();
         setTaskName("");
         setTaskDescription("");
       })
@@ -101,9 +106,10 @@ const Tasks = () => {
         }
         return response.json();
       })
-      .then(() => {
+      .then( async() => {
         // Fetch tasks again after successfully updating task status
-        fetchTasks();
+       await fetchTasks();
+        // console.log(await fetchTasks());
       })
       .catch((error) => {
         console.error('Error updating task status:', error);
@@ -168,7 +174,7 @@ const Tasks = () => {
               onClick={() => setFilterCompleted(!filterCompleted)}
               className="bg-[#3B50FE] rounded-lg text-white py-1 px-1 mt-1 lg:mt-0"
             >
-              {filterCompleted ? "Pending" : "Completed"}
+              {filterCompleted ? "Pending" : "All Tasks"}
             </button>
           </div>
           {filteredTasks.map((task,index) => (
@@ -188,12 +194,12 @@ const Tasks = () => {
                 <button
                   onClick={() => toggleTaskStatus(task.id)}
                   className={`text-${
-                    task.updateTask === '1'
+                    String(task.updateTask) === '1'
                       ? "white bg-blue-600 p-1 rounded-lg"
                       : "white bg-red-600 p-1 rounded-lg"
                   } mr-2`}
                 >
-                 {task.updateTask === '1' ? 'Completed' : 'Pending'}
+                 {String(task.updateTask) === '1' ? 'Completed' : 'Pending'}
                 </button>
                 <button
                   onClick={() => removeTask(index)}

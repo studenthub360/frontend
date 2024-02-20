@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Navbar from "./navbar";
+import Chart from "chart.js/auto";
 
 const ExpenseTracker = () => {
   const [expenses, setExpenses] = useState([]);
@@ -39,11 +41,14 @@ const ExpenseTracker = () => {
   };
 
   const handleFilterExpenses = (selectedCategory) => {
-    if (selectedCategory === "all") {
+    const lowerCaseSelectedCategory = selectedCategory.toLowerCase();
+
+    if (lowerCaseSelectedCategory === "all") {
       setFilteredExpenses(expenses);
     } else {
       const filtered = expenses.filter(
-        (expense) => expense.category === selectedCategory
+        (expense) =>
+          expense.category.toLowerCase() === lowerCaseSelectedCategory
       );
       setFilteredExpenses(filtered);
     }
@@ -58,10 +63,47 @@ const ExpenseTracker = () => {
   const categories = Array.from(
     new Set(expenses.map((expense) => expense.category))
   );
+  useEffect(() => {
+    // Create a pie chart
+    const ctx = document.getElementById("expenseChart").getContext("2d");
+    const chart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: categories,
+        datasets: [
+          {
+            data: categories.map((category) =>
+              expenses
+                .filter((expense) => expense.category === category)
+                .reduce((acc, expense) => acc + expense.amount, 0)
+            ),
+            backgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#4BC0C0",
+              "#9966FF",
+              "#FF8C00",
+              "#32CD32",
+              "#8A2BE2",
+              "#FFD700",
+              "#00CED1",
+            ],
+          },
+        ],
+      },
+    });
+
+    return () => {
+      // Cleanup chart instance on component unmount
+      chart.destroy();
+    };
+  }, [expenses, categories]);
 
   return (
     <div className="min-h-screen bg-[#F0F9FB] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-md">
+        <Navbar />
         <div className="px-6 py-4">
           <h1 className="text-3xl font-bold mb-4 text-[#1b1963]">
             Expense Tracker
@@ -137,7 +179,7 @@ const ExpenseTracker = () => {
         </button>
         <div className="px-1 py-4">
           <h2 className="text-xl font-bold mb-2 text-[#1b1963]">Expenses:</h2>
-          {expenses.length > 0 ? (
+          {filteredExpenses.length > 0 ? (
             <ul>
               {filteredExpenses.map((expense, index) => (
                 <li
@@ -149,26 +191,16 @@ const ExpenseTracker = () => {
                       {expense.category}
                     </span>
                     <span className="text-gray-500 ml-2">
-                      (${expense.amount.toFixed(2)})
+                      (₦{expense.amount.toFixed(2)})
                     </span>
                   </div>
-                  {/* <button
+                  <button
                     className="text-red-600 hover:text-red-800 transition duration-200"
                     onClick={() => handleDeleteExpense(index)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 1c-.828 0-1.5.672-1.5 1.5v1H5v2h1v10c0 .828.672 1.5 1.5 1.5h6c.828 0 1.5-.672 1.5-1.5v-10h1V2.5C14.5 1.672 13.828 1 13 1h-3zm-.5 2h4v10H6V3h3.5zM8 8V5h4v3H8zm0 4v2h4v-2H8z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button> */}
+                    {/* You can add an icon or text for deleting expense */}
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
@@ -203,7 +235,7 @@ const ExpenseTracker = () => {
               onChange={(e) => handleFilterExpenses(e.target.value)}
               className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="ll">All</option>
+              {/* <option value="all">All</option> */}
               {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
@@ -212,18 +244,32 @@ const ExpenseTracker = () => {
             </select>
           </div>
           {/* Render categorized expenses */}
-          {category === "All" ? (
+          {filteredExpenses.length > 0 ? (
             <ul>
-              {expenses.map((expense, index) => (
-                <li key={index}>{/* Render expense details */}</li>
+              {filteredExpenses.map((expense, index) => (
+                <li key={index}>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <span className="text-gray-800 font-bold">
+                        {expense.category}
+                      </span>
+                      <span className="text-gray-500 ml-2">
+                        (₦{expense.amount.toFixed(2)})
+                      </span>
+                    </div>
+                    <button
+                      className="text-red-600 hover:text-red-800 transition duration-200"
+                      onClick={() => handleDeleteExpense(index)}
+                    >
+                      {/* You can add an icon or text for deleting expense */}
+                      Delete
+                    </button>
+                  </div>
+                </li>
               ))}
             </ul>
           ) : (
-            <ul>
-              {filteredExpenses.map((expense, index) => (
-                <li key={index}>{/* Render filtered expense details */}</li>
-              ))}
-            </ul>
+            <p className="text-gray-600">No expenses added yet.</p>
           )}
         </div>
       </div>
@@ -233,7 +279,9 @@ const ExpenseTracker = () => {
           <p className="text-gray-600">
             Generate reports to visualize your spending habits.
           </p>
-          {/* Add report generation and visualization logic using charting libraries */}
+          <div className="mt-2">
+            <canvas id="expenseChart" width="40" height="40"></canvas>
+          </div>
         </div>
       </div>
     </div>

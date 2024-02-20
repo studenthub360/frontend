@@ -1,10 +1,13 @@
 import React from "react";
 import { TypeAnimation } from "react-type-animation";
 import { Link } from "react-router-dom";
+import Navbar from "./navbar";
 
 const Hero = () => {
   return (
+    
     <div className="text-white w-screen h-screen flex items-center justify-center bg-[#F0F9FB]">
+    
       <div className="max-w-[800px] mx-auto text-center">
         <p className="text-black font-bold p-2">Track Your Expenses</p>
         <h1 className="md:text-7xl sm:text-6xl text-4xl text-[#3B50FE] font-bold md:py-6">

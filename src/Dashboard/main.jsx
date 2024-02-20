@@ -36,7 +36,7 @@ const Main = () => {
             </h3>
           </div>
         </Link>
-        <Link to="/user-authentication" className="text-center">
+        <Link to="https://student360-community-chat.onrender.com/" className="text-center">
           <div className="bg-[#3A4FFE] p-10 h-auto w-auto rounded-lg shadow-md hover:shadow-lg cursor-pointer">
             <h3 className="text-xl font-semibold mb-2 text-white">
              Community Chat
