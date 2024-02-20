@@ -39,7 +39,7 @@ const Navbar = () => {
         </h1>
         <ul className="p-4 uppercase">
           <li className="p-4 border-b border-gray-600">
-            <Link to="/">Home</Link>
+            <Link to="/dashboard">Home</Link>
           </li>
           {/* <li className='p-4 border-b border-gray-600'><Link to="/company">Company</Link></li>
           <li className='p-4 border-b border-gray-600'><Link to="/resources">Resources</Link></li>
