@@ -20,6 +20,7 @@ const NetworkingGroups = () => {
       description:
         "Get proper sleep so you can tackle the day properly while feeling your best",
       image: sleep,
+      link: "https://www.sleepfoundation.org/how-sleep-works/why-do-we-need-sleep",
     },
     {
       id: 2,
@@ -27,6 +28,7 @@ const NetworkingGroups = () => {
       description:
         "Acquire training is the things you love as a form of distraction",
       image: skill,
+      link: "https://www.indeed.com/career-advice/career-development/acquire-skills",
     },
     {
       id: 3,
@@ -34,6 +36,7 @@ const NetworkingGroups = () => {
       description:
         "We all need a moment to do this sometimes in order to reset",
       image: breath,
+      link: "https://www.healthline.com/health/breathing-exercise",
     },
     {
       id: 4,
@@ -41,6 +44,7 @@ const NetworkingGroups = () => {
       description:
         "We all need a few weird relaxing positions in order to release stress sometimes",
       image: yoga,
+      link: "https://www.youtube.com/user/yogawithadriene",
     },
     {
       id: 5,
@@ -48,6 +52,7 @@ const NetworkingGroups = () => {
       description:
         "Connecting with out favorite musicians can actually help us forget our worries sometimes",
       image: music,
+      link: "/wellbeing",
     },
     {
       id: 6,
@@ -55,6 +60,7 @@ const NetworkingGroups = () => {
       description:
         "Like they always say, what God cannot do does not exist , so take your stressors to Him",
       image: pray,
+      link:"https://www.cru.org/us/en/train-and-grow/spiritual-growth/prayer/how-to-pray.html",
     },
     {
       id: 7,
@@ -62,6 +68,7 @@ const NetworkingGroups = () => {
       description:
         "There is nothing a little convo with our fave person cannot fix, so connect with them  ",
       image: loved,
+      link:"https://highlandspringsclinic.org/the-top-ten-benefits-of-spending-time-with-family/",
     },
     {
       id: 8,
@@ -69,6 +76,7 @@ const NetworkingGroups = () => {
       description:
         "Sometimes  all we need is to sit down and think about things",
       image: reflect,
+      link:"https://reflect.microsoft.com/"
     },
 
     // Add more networking groups as needed
@@ -91,12 +99,12 @@ const NetworkingGroups = () => {
               {group.name}
             </h3>
             <p className="text-gray-600">{group.description}</p>
-            <button
-              to={`/networking-groups/${group.id}`}
+            <Link
+              to={group.link}
               className="mt-4 text-[#3A4FFE]  border border-[#3A4FFE] rounded-lg inline-block"
             >
               <h1 className="p-2 font-bold">Get Material</h1>
-            </button>
+            </Link>
           </div>
         ))}
       </div>

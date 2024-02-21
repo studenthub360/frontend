@@ -20,6 +20,7 @@ const NetworkingGroups = () => {
       description:
         "Embrace exercises to relieve your stress and ease your mind in the best way",
       image: exercise,
+      link: "https://www.msn.com/en-us/health/fitness-challenges/in-7-day-weight-loss-challenge-mark-sneddon/in-7-day-weight-loss-challenge-mark-sneddon",
     },
     {
       id: 2,
@@ -27,6 +28,7 @@ const NetworkingGroups = () => {
       description:
         "Don’t shy away from seeking professional help when necessary",
       image: therapy,
+      link: "https://www.therapyroute.com/therapists/nigeria/lagos/1",
     },
     {
       id: 3,
@@ -34,6 +36,7 @@ const NetworkingGroups = () => {
       description:
         "Connect with your environment by meditating and become your best",
       image: meditation,
+      link: "https://www.verywellmind.com/best-meditation-apps-4767322",
     },
     {
       id: 4,
@@ -41,6 +44,7 @@ const NetworkingGroups = () => {
       description:
         "Spend time with your loved ones and embrace the great joy which is that brought by love",
       image: twf,
+      link: "https://www.marriage.com/advice/family/spending-time-with-family/#:~:text=Spending%20time%20with%20family%20is%20crucial%20as%20it,promotes%20communication%20skills%20and%20helps%20create%20lasting%20memories.",
     },
     {
       id: 5,
@@ -48,6 +52,7 @@ const NetworkingGroups = () => {
       description:
         "Express yourself in the best way possible to release tension",
       image: journal,
+      link: "https://www.betterup.com/blog/how-to-start-journaling",
     },
     {
       id: 6,
@@ -55,6 +60,7 @@ const NetworkingGroups = () => {
       description:
         "There is no better way to manage yourself than to reorganise both physically and mentally ",
       image: reorganise,
+      link: "https://todoist.com/inspiration/organize-your-life",
     },
     {
       id: 7,
@@ -62,6 +68,7 @@ const NetworkingGroups = () => {
       description:
         "Your life , your rules. Envision your own stress free life at its best  ",
       image: vision,
+      link:"https://www.developgoodhabits.com/vision-board-ideas/",
     },
     {
       id: 8,
@@ -69,6 +76,7 @@ const NetworkingGroups = () => {
       description:
         "The only way to not worry about what you don’t have is being grateful for that you do have",
       image: gratitude,
+      link:"https://www.verywellmind.com/what-is-gratitude-5206817",
     },
 
     // Add more networking groups as needed
@@ -91,12 +99,12 @@ const NetworkingGroups = () => {
               {group.name}
             </h3>
             <p className="text-gray-600 ">{group.description}</p>
-            <button
-              to={`/networking-groups/${group.id}`}
+            <Link
+              to={group.link}
               className="mt-4 text-[#3A4FFE]  border border-[#3A4FFE] rounded-lg inline-block"
             >
               <h1 className="p-2 font-bold">Get Material</h1>
-            </button>
+            </Link>
           </div>
         ))}
       </div>
