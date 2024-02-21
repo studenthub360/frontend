@@ -28,6 +28,7 @@ import kudaxerica from "./SocialNetworking/images/kudaxerica.png";
 import genzhack from "./SocialNetworking/images/genzHack.png";
 import ProtectedRoute from "./ProtectedRoute";
 
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -220,6 +221,7 @@ function App() {
       element={<ProtectedRoute><EventDetails networkingGroups={networkingGroups} /></ProtectedRoute>}
     />
   </Routes>
+
   );
 }
 

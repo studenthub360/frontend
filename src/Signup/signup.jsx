@@ -7,7 +7,11 @@ import Swal from "sweetalert2";
 import { data } from "autoprefixer";
 // import dotenv from 'dotenv'
 // dotenv.config()
-
+const loaderStyles = {
+  width: "75px",
+  aspectRatio: "1",
+  display: "grid",
+};
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,12 +20,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   // const signupApiLink = process.env.REACT_APP_Signup_api_link;
   let signupApiLink = "https://student360-api.onrender.com/api/reg";
   const handleSignUp = async () => {
     // Make HTTP POST request to the registration endpoint
     console.log("before");
+    setIsLoading(true);
     // await axios.post(
     //      signupApiLink,
     //       {
@@ -188,12 +194,12 @@ const SignUp = () => {
                 onChange={(e) => setLevel(e.target.value)}
               >
                 <option value="">Select Level</option>
-                <option value="level1">100</option>
-                <option value="level2">200</option>
-                <option value="level3">300</option>
-                <option value="level4">400</option>
-                <option value="level5">500</option>
-                <option value="level6">600</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+                <option value="600">600</option>
               </select>
             </div>
             <div className="mb-4">
@@ -252,6 +258,14 @@ const SignUp = () => {
                 onClick={handleSignUp}
               >
                 Sign Up
+                {isLoading && (
+            <div className="flex justify-center bg-gray-800 items-center mt-4">
+              <div className="loader" style={loaderStyles}>
+                <div className="loader:before"></div>
+                <div className="loader:after"></div>
+              </div>
+            </div>
+          )}
               </button>
             </Link>
           </form>

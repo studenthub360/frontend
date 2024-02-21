@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-black">
+    <footer id="contacts" className="bg-white text-black">
       <div className="container mx-auto flex flex-col md:flex-row px-6 py-12 md:py-24">
         <div className="md:w-1/3 mb-6 md:mb-0 md:mr-8">
           <Link className="text-2xl text-[#3B4FFE] flex pb-5 font-semibold">
@@ -30,7 +30,9 @@ const Footer = () => {
           <h1 className="text-xl font-semibold mb-4">Contact</h1>
           <ul className="text-sm">
             <li className="py-1 text-[#33363F]">+234 81 3495 9594</li>
-            <li className="py-1 text-[#33363F]">thecodecartel@gmail.com</li>
+            <a href="mailto:studentwee360@gmail.com">
+            <li className="py-1 text-[#33363F]">studentwee360@gmail.com</li>
+            </a>
             <li className="py-1 text-[#33363F]">Terms Privacy</li>
           </ul>
         </div>

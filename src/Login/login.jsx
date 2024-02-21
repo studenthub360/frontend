@@ -149,15 +149,18 @@ const Login = ({ onLogin }) => {
                 onClick={handleLogin}
               >
                 Log In
+                {isLoading && (
+            <div className="flex justify-center bg-gray-800 items-center mt-4">
+              <div className="loader" style={loaderStyles}>
+                <div className="loader:before"></div>
+                <div className="loader:after"></div>
+              </div>
+            </div>
+          )}
               </button>
             </Link>
           </form>
-          {isLoading && (
-            <div className="loader" style={loaderStyles}>
-              <div className="loader:before"></div>
-              <div className="loader:after"></div>
-            </div>
-          )}
+         
           <p className="mt-4 text-sm text-center lg:text-center">
             Don't have an account?{" "}
             <Link to="/signup" className="text-[#3A4FFE]">

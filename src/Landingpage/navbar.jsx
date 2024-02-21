@@ -37,6 +37,11 @@ const Navbar = () => {
     aboutUsSection.scrollIntoView({ behavior: "smooth" });
     closeDropdown();
   };
+  const scrollToContacts = () => {
+    const aboutUsSection = document.getElementById("contacts");
+    aboutUsSection.scrollIntoView({ behavior: "smooth" });
+    closeDropdown();
+  };
 
   return (
     <nav
@@ -74,7 +79,7 @@ const Navbar = () => {
               Benefits
             </Link>
             <Link
-              onClick={closeDropdown}
+              onClick={scrollToContacts}
               className="hover:border-b-2 border-[#3A4FFE] font-semibold hover:transition duration-200 ease-in-out"
             >
               Contacts
@@ -139,7 +144,7 @@ const Navbar = () => {
                   Benefits
                 </Link>
                 <Link
-                  onClick={closeDropdown}
+                  onClick={scrollToContacts}
                   className="block text-[#3B4FFE] font-semibold py-2 hover:bg-gray-100 rounded"
                 >
                   Contacts
