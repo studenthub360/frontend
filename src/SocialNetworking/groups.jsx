@@ -62,12 +62,12 @@ const NetworkingGroups = () => {
               {group.groupName}
             </h3>
             <p className="text-gray-600 p-2">{group.groupDescription}</p>
-            <button
+            <Link
               to={group.groupLink}
               className="mt-4 text-[#3A4FFE]  border border-[#3A4FFE] rounded-lg inline-block"
             >
               <h1 className="p-2 font-bold">Join Group</h1>
-            </button>
+            </Link>
           </div>
         ))}
       </div>
