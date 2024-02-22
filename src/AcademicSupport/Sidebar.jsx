@@ -26,13 +26,11 @@ const Sidebar = () => {
         <div>
           <li className="p-4 ">
             <Link to="/learn" className="flex gap-2">
-              <img src={stress} className="w-8 h-8 " />
               Learning Resources
             </Link>
           </li>
           <li className="p-4">
             <Link to="/study" className="flex gap-2">
-              <img src={playlist} className="w-8 h-8" />
               Study Session
             </Link>
           </li>
@@ -92,7 +90,7 @@ const Sidebar = () => {
       )}
       {/* Logout link */}
       <div className="p-6 items-center font-semibold">
-      <Link
+        <Link
           to="/feedback"
           className="mb-4 p-2 text-[#fff] border border-[#3A4FFE] shadow-lg rounded-lg inline-block"
         >
