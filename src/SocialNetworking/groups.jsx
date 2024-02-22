@@ -1,6 +1,5 @@
 // NetworkingGroups.js
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import genz from "./images/genzT.png";
 import gdsc from "./images/gdsc.png";
@@ -12,84 +11,59 @@ import fintech from "./images/fintech.png";
 import techin from "./images/techin.png";
 
 const NetworkingGroups = () => {
-  // Replace the following data with your actual networking groups data
-  const networkingGroups = [
-    {
-      id: 1,
-      name: "GENZ-TECHIES",
-      description:
-        "Connect with young-minded tech enthusiasts and explore the latest trends in the tech industry.",
-      image: genz,
-    },
-    {
-      id: 2,
-      name: "Google Developer Student Club (GDSC)",
-      description: "Join if you're passionate about tech.",
-      image: gdsc,
-    },
-    {
-      id: 3,
-      name: "Kuda Tech Club",
-      description:
-        "Kuda Tech Club invites tech enthusiasts to a symposium on tech innovation.",
-      image: kuda,
-    },
-    {
-      id: 4,
-      name: "Trakka Tech Club",
-      description:
-        "Embark on a coding adventure at the Hackathon 2024 hosted by Trakka Tech Club.",
-      image: trakka,
-    },
-    {
-      id: 5,
-      name: "Interswitch Tech Club",
-      description:
-        " Explore the latest trends in financial technology and network with professionals in the fintech industry.",
-      image: interswitch,
-    },
-    {
-      id: 6,
-      name: "Learnly Tech Club",
-      description:
-        "Learnly Tech Club presents a Coding Bootcamp where you'll enhance your programming abilities",
-      image: learnly,
-    },
-    {
-      id: 7,
-      name: "Fintech Club",
-      description:
-        "Explore the world of blockchain at the Fintech Club's Blockchain Workshop.",
-      image: fintech,
-    },
-    {
-      id: 8,
-      name: "Techin (Tech Innovators Network)",
-      description: "Connect with visionaries shaping the future of technology.",
-      image: techin,
-    },
-    // Add more networking groups as needed
-  ];
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    // Fetch networking groups data when the component mounts
+    fetchNetworkingGroups();
+  }, []);
+
+  const fetchNetworkingGroups = async () => {
+    try {
+      const token = sessionStorage.getItem("accessToken");
+
+      // Fetch networking groups data from the API
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/netgrp",
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch networking groups");
+      }
+
+      const groupsData = await response.json([]);
+      setGroups(groupsData || []); // Ensure groups array is defined or use an empty array
+    } catch (error) {
+      console.error("Error fetching networking groups:", error);
+      alert("Failed to fetch networking groups. Please try again.");
+    }
+  };
+
 
   return (
     <div className="container ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {networkingGroups.map((group) => (
+        {groups.map((group) => (
           <div
             key={group.id}
             className="bg-white pb-6  text-center rounded-xl shadow-md"
           >
             <img
-              src={group.image}
+              src={group.imageUrl}
               alt="Group"
               className="w-full h-fit object-cover"
             />
             <h3 className="text-xl font-semibold mb-2 text-[#3A4FFE]">
-              {group.name}
+              {group.groupName}
             </h3>
-            <p className="text-gray-600 p-2">{group.description}</p>
+            <p className="text-gray-600 p-2">{group.groupDescription}</p>
             <button
-              to={`/networking-groups/${group.id}`}
+              to={group.groupLink}
               className="mt-4 text-[#3A4FFE]  border border-[#3A4FFE] rounded-lg inline-block"
             >
               <h1 className="p-2 font-bold">Join Group</h1>

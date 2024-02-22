@@ -10,17 +10,32 @@ const FeedbackPage = () => {
   const handleSubmitFeedback = async () => {
     try {
       setIsLoading(true);
+      const token = sessionStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+      // Send feedback to the API
+      const response = await fetch(
+        "https://student360-api.onrender.com/api/feedback/social",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({ title, description }),
+        }
+      );
 
-      // Send a request to your backend to handle the feedback submission
-      // You can use axios or fetch here
-      // Example:
-      // const response = await axios.post("/api/feedback", { title, description });
-      // Handle the response as needed
+      if (!response.ok) {
+        throw new Error("Failed to submit feedback");
+      }
 
-      // For demonstration purposes, let's assume the submission is successful
+      // Clear the form on successful submission
+      setTitle("");
+      setDescription("");
+
       alert("Feedback submitted successfully!");
     } catch (error) {
       console.error("Error submitting feedback:", error);
+      alert("Failed to submit feedback. Please try again.");
     } finally {
       setIsLoading(false);
     }

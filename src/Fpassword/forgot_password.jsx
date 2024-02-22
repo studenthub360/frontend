@@ -8,14 +8,21 @@ const ForgotPassword = () => {
   const handleForgotPassword = async () => {
     try {
       setIsLoading(true);
+      const token = sessionStorage.getItem("accessToken");
+      const response = await fetch("https://student360-api.onrender.com/api/otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify({ email }),
+      
+      });
+console.log(response);
+      if (!response.ok) {
+        throw new Error("Failed to send OTP");
+      }
 
-      // Send a request to your backend to initiate the forgot password process
-      // You can use axios or fetch here
-      // Example:
-      // const response = await axios.post("/api/auth/forgot-password", { email });
-      // Handle the response as needed
-
-      // For demonstration purposes, let's assume the request is successful
       alert("OTP sent to your email address");
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -46,6 +53,7 @@ const ForgotPassword = () => {
             type="button"
             className="bg-[#3A4FFE] text-white p-2 rounded-md w-full hover:bg-gray-800 font-extrabold"
             onClick={handleForgotPassword}
+            disabled={isLoading}
           >
             {isLoading ? "Sending..." : "Send OTP"}
           </button>
