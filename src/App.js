@@ -27,7 +27,8 @@ import cowrywise from "./SocialNetworking/images/cowrywise.png";
 import kudaxerica from "./SocialNetworking/images/kudaxerica.png";
 import genzhack from "./SocialNetworking/images/genzHack.png";
 import ProtectedRoute from "./ProtectedRoute";
-
+import ForgotPassword from "./Fpassword/forgot_password";
+import FeedbackPage from "./Feedback/feedback";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -146,82 +147,151 @@ function App() {
   ];
   return (
     <Routes>
-    <Route path="/" element={<Main />} />
-    <Route
-      path="/login"
-      element={<Login onLogin={() => setIsAuthenticated(true)} />}
-    />
-    <Route path="/signup" element={<Signup />} />
-    <Route
-      path="/dashboard"
-      element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
-    />
-    <Route
-      path="/dashboard/time-management"
-      element={<ProtectedRoute><TimeManagement /></ProtectedRoute>}
-    />
-    <Route
-      path="/scheduling"
-      element={<ProtectedRoute><Scheduling /></ProtectedRoute>}
-    />
-    <Route
-      path="/tasks"
-      element={<ProtectedRoute><Tasks /></ProtectedRoute>}
-    />
-    <Route
-      path="/tasksdah"
-      element={<ProtectedRoute><Tasksdah /></ProtectedRoute>}
-    />
-    <Route
-      path="/financial"
-      element={<ProtectedRoute><FinanceDashboard /></ProtectedRoute>}
-    />
-    <Route
-      path="/expense-tracker"
-      element={<ProtectedRoute><ExpenseTracker /></ProtectedRoute>}
-    />
-    <Route
-      path="/dashboard/time-management/events"
-      element={<ProtectedRoute><Events /></ProtectedRoute>}
-    />
-    <Route
-      path="/groups"
-      element={<ProtectedRoute><Groups /></ProtectedRoute>}
-    />
-    <Route
-      path="/groups/events"
-      element={<ProtectedRoute><Nevents /></ProtectedRoute>}
-    />
-    <Route
-      path="/wellbeing"
-      element={<ProtectedRoute><Stress /></ProtectedRoute>}
-    />
-    <Route
-      path="/coping"
-      element={<ProtectedRoute><Coping /></ProtectedRoute>}
-    />
-    <Route
-      path="/stress"
-      element={<ProtectedRoute><Managestress /></ProtectedRoute>}
-    />
-    <Route
-      path="/learn"
-      element={<ProtectedRoute><Learn /></ProtectedRoute>}
-    />
-    <Route
-      path="/study"
-      element={<ProtectedRoute><Study /></ProtectedRoute>}
-    />
-    <Route
-      path="/profile"
-      element={<ProtectedRoute><Profile onLogout={handleLogout} /></ProtectedRoute>}
-    />
-    <Route
-      path="/networking-groups/:id"
-      element={<ProtectedRoute><EventDetails networkingGroups={networkingGroups} /></ProtectedRoute>}
-    />
-  </Routes>
-
+      <Route path="/" element={<Main />} />
+      <Route
+        path="/login"
+        element={<Login onLogin={() => setIsAuthenticated(true)} />}
+      />
+      <Route path="/signup" element={<Signup />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/time-management"
+        element={
+          <ProtectedRoute>
+            <TimeManagement />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/scheduling"
+        element={
+          <ProtectedRoute>
+            <Scheduling />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tasks"
+        element={
+          <ProtectedRoute>
+            <Tasks />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tasksdah"
+        element={
+          <ProtectedRoute>
+            <Tasksdah />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/financial"
+        element={
+          <ProtectedRoute>
+            <FinanceDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/expense-tracker"
+        element={
+          <ProtectedRoute>
+            <ExpenseTracker />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/time-management/events"
+        element={
+          <ProtectedRoute>
+            <Events />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/groups"
+        element={
+          <ProtectedRoute>
+            <Groups />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/groups/events"
+        element={
+          <ProtectedRoute>
+            <Nevents />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/wellbeing"
+        element={
+          <ProtectedRoute>
+            <Stress />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/coping"
+        element={
+          <ProtectedRoute>
+            <Coping />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/stress"
+        element={
+          <ProtectedRoute>
+            <Managestress />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/learn"
+        element={
+          <ProtectedRoute>
+            <Learn />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/study"
+        element={
+          <ProtectedRoute>
+            <Study />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile onLogout={handleLogout} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/networking-groups/:id"
+        element={
+          <ProtectedRoute>
+            <EventDetails networkingGroups={networkingGroups} />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/forgot_password" element={<ForgotPassword />} />
+      <Route path="/feedback" element={<ProtectedRoute><FeedbackPage /></ProtectedRoute>} />
+    </Routes>
   );
 }
 

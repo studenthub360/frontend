@@ -87,6 +87,12 @@ const Sidebar = () => {
             >
               Events
             </Link> */}
+              <Link
+              to="/feedback"
+              className="mb-4 mr-auto text-[#3A4FFE] border border-[#3A4FFE] shadow-lg rounded-lg inline-block"
+            >
+              <h1 className="p-2 font-bold">Feedback</h1>
+            </Link>
             <Link to="/" className="flex gap-2">
               <img src={logoutblack} className=" w-5 ml-4   " />
               Logout
@@ -96,6 +102,12 @@ const Sidebar = () => {
       )}
       {/* Logout link */}
       <div className="p-6 items-center font-semibold">
+      <Link
+          to="/feedback"
+          className="mb-4 p-2 text-[#fff] border border-[#3A4FFE] shadow-lg rounded-lg inline-block"
+        >
+          <h1 className="p-2 font-bold">Feedback</h1>
+        </Link>
         <Link to="/" className="flex text-white gap-2">
           <img src={logout} className="w-6 " />
           Logout

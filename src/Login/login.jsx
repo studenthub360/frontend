@@ -139,7 +139,7 @@ const Login = ({ onLogin }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="text-right text-[#3A4FFE] text-sm mt-1">
-                <Link to="/forgot-password">Forgot Password?</Link>
+                <Link to="/forgot_password">Forgot Password?</Link>
               </p>
             </div>
             <Link>

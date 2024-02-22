@@ -19,6 +19,12 @@ const Navbar = () => {
         <li className="p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]">
           <Link to="/dashboard">Home</Link>
         </li>
+        <Link
+          to="/feedback"
+          className="mb-4 my-auto text-[#3A4FFE] border border-[#3A4FFE] shadow-lg rounded-lg inline-block"
+        >
+          <h1 className="p-2 font-bold">Feedback</h1>
+        </Link>
         {/* <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/company">Time Management</Link></li>
         <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/resources">Resources</Link></li>
         <li className='p-4 hover:scale-105 duration-300 hover:text-[#3B50FE]'><Link to="/about">About</Link></li>
@@ -41,6 +47,9 @@ const Navbar = () => {
           <li className="p-4 border-b border-gray-600">
             <Link to="/dashboard">Home</Link>
           </li>
+          <li className="p-4 border-b border-gray-600">
+            <Link to="/feedback">Feedback</Link>
+</li>
           {/* <li className='p-4 border-b border-gray-600'><Link to="/company">Company</Link></li>
           <li className='p-4 border-b border-gray-600'><Link to="/resources">Resources</Link></li>
           <li className='p-4 border-b border-gray-600'><Link to="/about">About</Link></li>
