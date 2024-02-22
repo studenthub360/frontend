@@ -103,6 +103,7 @@ const SharedPlaylist = () => {
         playlist: playlistName,
         player: selectedApp,
         link: playlistLink,
+        description: description,
         // description: description,
       };
 
